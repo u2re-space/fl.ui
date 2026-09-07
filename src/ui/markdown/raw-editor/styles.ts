@@ -42,6 +42,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     overflow-y: auto !important;
     overscroll-behavior: contain;
     overflow-anchor: none;
+    cursor: text;
     padding: var(--view-padding, 0.75rem);
     max-block-size: stretch !important;
     max-inline-size: stretch !important;
@@ -84,10 +85,19 @@ export const RAW_EDITOR_SHADOW_CSS = `
     box-sizing: border-box;
     width: 100%;
     max-inline-size: stretch;
-    min-height: max(100%, 100cqb) !important;
-    min-block-size: max(100%, 100cqb) !important;
+    min-width: 100%;
+    min-height: 100%;
+    min-block-size: 100%;
     height: max-content;
     block-size: max-content;
+    /* WHY: H = max(I+K, box). Extra on size stays inside 100cqh → no overflow to scroll. */
+    block-size: calc-size(max-content, 
+        max(size, 100cqh) + 
+        max(
+            var(--virtual-keyboard-height, 0px) - 
+            max(100cqh - size, 0px)
+        , 0px)
+    );
     max-block-size: none !important;
     max-height: none !important;
     font: inherit;
@@ -265,12 +275,6 @@ export const RAW_EDITOR_SHADOW_CSS = `
     scrollbar-width: thin !important;
     scrollbar-gutter: stable !important;
 }
-.cw-raw-editor__pre {
-    padding-bottom: calc(var(--view-padding, 0.75rem) + env(keyboard-inset-height, 0px) + env(safe-area-inset-bottom, 0px)) !important;
-    padding-block-end: calc(var(--view-padding, 0.75rem) + env(keyboard-inset-height, 0px) + env(safe-area-inset-bottom, 0px)) !important;
-    padding-bottom: calc(var(--view-padding, 0.75rem) + var(--virtual-keyboard-height, env(keyboard-inset-height, 0px)) + env(safe-area-inset-bottom, 0px)) !important;
-    padding-block-end: calc(var(--view-padding, 0.75rem) + var(--virtual-keyboard-height, env(keyboard-inset-height, 0px)) + env(safe-area-inset-bottom, 0px)) !important;
-}
 `;
 
 /* COMPAT: Android WebView — % / px / var() only. No stretch, cqb, light-dark, env(). */
@@ -281,8 +285,10 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    min-width: 0;
-    min-height: 0;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     overflow: hidden;
     color: var(--view-fg, inherit);
     background-color: var(--view-bg, transparent);
@@ -292,6 +298,7 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     line-height: 1.5;
     z-index: 1;
     pointer-events: auto;
+    container-type: size;
 }
 :host([hidden]) {
     display: none !important;
@@ -303,10 +310,12 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     left: 0;
     right: 0;
     bottom: 0;
-    width: auto;
-    height: auto;
-    min-width: 0;
-    min-height: 0;
+    width: 100%;
+    height: max(100%, 100cqh);
+    min-width: 100%;
+    min-height: max(100%, 100cqh);
+    max-height: max(100%, 100cqh);
+    max-width: 100%;
     overflow-x: auto;
     overflow-y: auto;
     overscroll-behavior: none;
@@ -315,13 +324,28 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     z-index: 1;
     pointer-events: auto;
     overscroll-behavior: none;
+    cursor: text;
+    container-type: size;
 }
 .cw-raw-editor__pre {
     position: relative;
     margin: 0;
     box-sizing: border-box;
     min-height: 100%;
-    width: 100%;
+    min-block-size: 100%;
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
+    max-height: none;
+    height: max-content;
+    /* WHY: H = max(I, box) + max(K, 0). Extra on size stays inside 100cqh → no overflow to scroll. */
+    height: calc-size(max-content, 
+        max(size, 100cqh) + 
+        max(
+            var(--virtual-keyboard-height, 0px) - 
+            max(100cqh - size, 0px)
+        , 0px)
+    );
     border: none;
     color: inherit;
     background: transparent;
@@ -332,7 +356,6 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     overflow-wrap: normal;
     tab-size: 4;
     padding: 0;
-    padding-bottom: var(--virtual-keyboard-height, 0px);
     z-index: 1;
     pointer-events: auto;
 }
@@ -341,8 +364,12 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     display: block;
     box-sizing: border-box;
     width: 100%;
+    min-width: 100%;
     min-height: 100%;
-    height: auto;
+    width: max-content;
+    height: max-content;
+    max-width: none;
+    max-height: none;
     font: inherit;
     line-height: 1.45;
     white-space: pre;

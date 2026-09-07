@@ -26,7 +26,9 @@ export const RAW_EDITOR_TAG = "cw-raw-editor";
 export class CwRawEditorElement extends HTMLElement {
     #pre: HTMLPreElement | null = null;
     #code: HTMLElement | null = null;
+    #scroll: HTMLDivElement | null = null;
     #unsubScreen: (() => void) | null = null;
+    #unsubEmpty: (() => void) | null = null;
 
     get value(): string {
         return this.#code?.textContent ?? "";
@@ -62,12 +64,46 @@ export class CwRawEditorElement extends HTMLElement {
             /* Viewport optional — must not block view mount. */
         }
         this.#ensureTree();
+        this.#bindEmptyFocus();
         if (isNativeCapacitorHost()) this.#bindKeyboardPad();
     }
 
     disconnectedCallback(): void {
         this.#unsubScreen?.();
         this.#unsubScreen = null;
+        this.#unsubEmpty?.();
+        this.#unsubEmpty = null;
+    }
+
+    /* WHY: calc-size height can be shorter than the scrollport — tap empty chrome, not the source. */
+    #bindEmptyFocus(): void {
+        const scroll = this.#scroll;
+        if (!scroll || this.#unsubEmpty) return;
+        const onDown = (e: PointerEvent): void => {
+            if (e.button !== 0) return;
+            const code = this.#code;
+            if (!code) return;
+            const hit = e.composedPath()[0];
+            if (hit instanceof Node && (hit === code || code.contains(hit))) return;
+            e.preventDefault();
+            this.#focusSource();
+        };
+        scroll.addEventListener("pointerdown", onDown);
+        this.#unsubEmpty = () => scroll.removeEventListener("pointerdown", onDown);
+    }
+
+    #focusSource(): void {
+        const code = this.#code;
+        if (!code) return;
+        code.focus({ preventScroll: true });
+        const root = this.shadowRoot as (ShadowRoot & { getSelection?: () => Selection | null }) | null;
+        const sel = root?.getSelection?.() ?? document.getSelection();
+        if (!sel) return;
+        const range = document.createRange();
+        range.selectNodeContents(code);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
     }
 
     /* WHY: do not import new @fest-lib/dom names — package `exports` is dist/dom.js.
@@ -96,7 +132,7 @@ export class CwRawEditorElement extends HTMLElement {
             const kb = Math.max(0, Number.parseFloat(raw) || 0);
             const px = `${kb}px`;
             this.style.setProperty("--virtual-keyboard-height", px);
-            if (this.#pre) this.#pre.style.paddingBottom = px;
+            //if (this.#pre) this.#pre.style.paddingBottom = px;
         } catch {
             /* ignore */
         }
@@ -127,6 +163,7 @@ export class CwRawEditorElement extends HTMLElement {
             pre.appendChild(code);
             scroll.appendChild(pre);
             shadow.replaceChildren(style, scroll);
+            this.#scroll = scroll;
             this.#pre = pre;
             this.#code = code;
         }
