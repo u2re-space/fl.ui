@@ -95,7 +95,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     white-space: pre;
     word-break: normal;
     overflow-wrap: normal;
-    color: inherit;
+    color: transparent !important;
     background: transparent !important;
     outline: none;
     caret-color: var(--view-fg, light-dark(#1f2328, #e6edf3));
@@ -104,6 +104,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     font-kerning: none;
     z-index: 2;
     pointer-events: auto;
+    position: relative;
 }
 .cw-raw-editor__source.code-highlight-painted:not(.code-highlight-source-only) {
     color: transparent;
@@ -331,7 +332,7 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     overflow-wrap: normal;
     tab-size: 4;
     padding: 0;
-    padding-bottom: calc(var(--view-padding, 0.75rem) + var(--virtual-keyboard-height, 0px));
+    padding-bottom: var(--virtual-keyboard-height, 0px);
     z-index: 1;
     pointer-events: auto;
 }

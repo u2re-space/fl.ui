@@ -10,7 +10,7 @@
 import DOMPurify from "dompurify";
 import { marked, type MarkedExtension } from "marked";
 import markedKatex from "marked-katex-extension";
-import renderMathInElement from "katex/dist/contrib/auto-render.mjs";
+import renderMathInElement from "katex/contrib/auto-render";
 
 export const CODE_LANGUAGE_ATTR = "data-language";
 

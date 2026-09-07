@@ -26,6 +26,7 @@ export const RAW_EDITOR_TAG = "cw-raw-editor";
 export class CwRawEditorElement extends HTMLElement {
     #pre: HTMLPreElement | null = null;
     #code: HTMLElement | null = null;
+    #unsubScreen: (() => void) | null = null;
 
     get value(): string {
         return this.#code?.textContent ?? "";
@@ -55,8 +56,50 @@ export class CwRawEditorElement extends HTMLElement {
     }
 
     connectedCallback(): void {
-        ensureViewportTracking();
+        try {
+            ensureViewportTracking();
+        } catch {
+            /* Viewport optional — must not block view mount. */
+        }
         this.#ensureTree();
+        if (isNativeCapacitorHost()) this.#bindKeyboardPad();
+    }
+
+    disconnectedCallback(): void {
+        this.#unsubScreen?.();
+        this.#unsubScreen = null;
+    }
+
+    /* WHY: do not import new @fest-lib/dom names — package `exports` is dist/dom.js.
+     * Viewport already writes --virtual-keyboard-height on <html>; copy CSS-px here. */
+    #bindKeyboardPad(): void {
+        if (this.#unsubScreen) return;
+        const on = (): void => this.#stampKeyboardPad();
+        window.addEventListener("keyboardDidShow", on);
+        window.addEventListener("keyboardWillShow", on);
+        window.addEventListener("keyboardDidHide", on);
+        window.addEventListener("keyboardWillHide", on);
+        window.visualViewport?.addEventListener("resize", on);
+        this.#unsubScreen = () => {
+            window.removeEventListener("keyboardDidShow", on);
+            window.removeEventListener("keyboardWillShow", on);
+            window.removeEventListener("keyboardDidHide", on);
+            window.removeEventListener("keyboardWillHide", on);
+            window.visualViewport?.removeEventListener("resize", on);
+        };
+        on();
+    }
+
+    #stampKeyboardPad(): void {
+        try {
+            const raw = getComputedStyle(document.documentElement).getPropertyValue("--virtual-keyboard-height");
+            const kb = Math.max(0, Number.parseFloat(raw) || 0);
+            const px = `${kb}px`;
+            this.style.setProperty("--virtual-keyboard-height", px);
+            if (this.#pre) this.#pre.style.paddingBottom = px;
+        } catch {
+            /* ignore */
+        }
     }
 
     #ensureTree(): HTMLElement {
