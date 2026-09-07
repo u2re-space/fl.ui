@@ -42,6 +42,7 @@
             "default": "./dist/fl-ui.js"
         },
         "./markdown/highlight": "./src/ui/markdown/highlight.ts",
+        "./markdown/raw-editor": "./src/ui/markdown/raw-editor/index.ts",
         "./markdown/render": "./src/ui/markdown/render.ts",
         "./styles": "./src/styles/index.scss",
         "./styles/core": "./src/styles/core.scss",
