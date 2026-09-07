@@ -32,6 +32,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     overflow-x: auto;
     overflow-y: auto;
     overscroll-behavior: contain;
+    overflow-anchor: none;
     padding: var(--view-padding, 0.75rem);
     padding-bottom: calc(var(--view-padding, 0.75rem) + var(--virtual-keyboard-height, env(keyboard-inset-height, 0px)) + env(safe-area-inset-bottom, 0px));
 }
