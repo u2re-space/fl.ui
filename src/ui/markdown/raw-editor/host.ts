@@ -3,10 +3,23 @@
  * TAG:raw-editor,raw-editor-layout
  * WHY: Raw scroll + source live in this shadow `<style>`. Capacitor paints that
  * tree; markdown-view adopted `@scope` does not reach a slotted light-DOM `<pre>`.
+ * INVARIANT: Capacitor gets RAW_EDITOR_CAPACITOR_CSS — PWA sheet stays untouched.
  */
 import { ensureViewportTracking } from "@fest-lib/dom";
 import { attachCodeHighlight, languageFromFilename } from "../highlight";
-import { RAW_EDITOR_SHADOW_CSS } from "./styles";
+import { rawEditorShadowCss } from "./styles";
+
+const isNativeCapacitorHost = (): boolean => {
+    try {
+        if (typeof document !== "undefined" && document.documentElement.dataset.cwspNativeShell === "capacitor") {
+            return true;
+        }
+        const cap = (globalThis as { Capacitor?: { isNativePlatform?: () => boolean } }).Capacitor;
+        return typeof cap?.isNativePlatform === "function" && Boolean(cap.isNativePlatform());
+    } catch {
+        return false;
+    }
+};
 
 export const RAW_EDITOR_TAG = "cw-raw-editor";
 
@@ -53,8 +66,10 @@ export class CwRawEditorElement extends HTMLElement {
 
         const shadow = this.shadowRoot ?? this.attachShadow({ mode: "open" });
         if (!this.#code || !shadow.contains(this.#code)) {
+            const native = isNativeCapacitorHost();
+            this.toggleAttribute("data-capacitor", native);
             const style = document.createElement("style");
-            style.textContent = RAW_EDITOR_SHADOW_CSS;
+            style.textContent = rawEditorShadowCss(native);
             const scroll = document.createElement("div");
             scroll.className = "cw-raw-editor__scroll";
             const pre = document.createElement("pre");

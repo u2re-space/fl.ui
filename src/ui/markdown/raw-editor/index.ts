@@ -5,4 +5,8 @@ export {
     ensureRawEditor,
     isRawEditorHost,
 } from "./host";
-export { RAW_EDITOR_SHADOW_CSS } from "./styles";
+export {
+    RAW_EDITOR_CAPACITOR_CSS,
+    RAW_EDITOR_SHADOW_CSS,
+    rawEditorShadowCss,
+} from "./styles";
