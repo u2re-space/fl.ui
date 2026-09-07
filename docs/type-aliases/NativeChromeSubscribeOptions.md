@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type NativeChromeSubscribeOptions = object;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:133
+Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:133
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:133
 getRequested: () => boolean;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:137
+Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:137
 
 Whether host currently wants native-mode.
 
@@ -36,7 +36,7 @@ Whether host currently wants native-mode.
 onChange: (probe) => void;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:135
+Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:135
 
 Fired on WCO geometrychange + display-mode media changes.
 

@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function formatPhoneElement(phone): any;
 ```
 
-Defined in: fl.ui/src/misc/Format.ts:32
+Defined in: modules/projects/fl.ui/src/misc/Format.ts:32
 
 ## Parameters
 

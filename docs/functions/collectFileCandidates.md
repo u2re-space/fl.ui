@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function collectFileCandidates(files, source?): AttachmentCandidate[];
 ```
 
-Defined in: fl.ui/src/ui/inputs/attachments/AttachmentSources.ts:38
+Defined in: modules/projects/fl.ui/src/ui/inputs/attachments/AttachmentSources.ts:38
 
 Convert a picker result into ordered file candidates.
 

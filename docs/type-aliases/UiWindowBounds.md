@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type UiWindowBounds = object;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows2.ts:46
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows2.ts:46
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: fl.ui/src/ui/containers/window/Windows2.ts:46
 h: number;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows2.ts:50
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows2.ts:50
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: fl.ui/src/ui/containers/window/Windows2.ts:50
 w: number;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows2.ts:49
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows2.ts:49
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: fl.ui/src/ui/containers/window/Windows2.ts:49
 x: number;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows2.ts:47
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows2.ts:47
 
 ***
 
@@ -50,4 +50,4 @@ Defined in: fl.ui/src/ui/containers/window/Windows2.ts:47
 y: number;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows2.ts:48
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows2.ts:48

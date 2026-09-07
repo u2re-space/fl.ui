@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,6 +10,6 @@
 const APP_BOX_TAG: "app-box";
 ```
 
-Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:8
+Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:8
 
 Outer frame: grid host for titlebar + body + resizer.

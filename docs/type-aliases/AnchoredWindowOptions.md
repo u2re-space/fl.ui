@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type AnchoredWindowOptions = object;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows.ts:22
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:22
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: fl.ui/src/ui/containers/window/Windows.ts:22
 optional minHeight?: number;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows.ts:29
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:29
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: fl.ui/src/ui/containers/window/Windows.ts:29
 optional minWidth?: number;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows.ts:28
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:28
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: fl.ui/src/ui/containers/window/Windows.ts:28
 optional panePrimary?: Node;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows.ts:25
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:25
 
 First column / primary region.
 
@@ -52,7 +52,7 @@ First column / primary region.
 optional paneSecondary?: Node;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows.ts:27
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:27
 
 Second column / secondary region.
 
@@ -64,4 +64,4 @@ Second column / secondary region.
 optional title?: string;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/Windows.ts:23
+Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:23

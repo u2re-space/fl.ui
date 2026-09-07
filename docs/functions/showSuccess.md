@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function showSuccess(message, duration?): HTMLElement | null;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:446
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:450
 
 Convenience methods for different toast kinds
 

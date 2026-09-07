@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: FlUIConfig
 
-Defined in: fl.ui/src/index.ts:33
+Defined in: modules/projects/fl.ui/src/index.ts:33
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: fl.ui/src/index.ts:33
 optional includeGlobalNativeControlStyles?: boolean;
 ```
 
-Defined in: fl.ui/src/index.ts:40
+Defined in: modules/projects/fl.ui/src/index.ts:40
 
 When true, also loads host-wide rules for native `button` and bare `input`/`select`/`textarea`.
 Default false so fl-ui does not restyle the whole document.
@@ -29,7 +29,7 @@ Default false so fl-ui does not restyle the whole document.
 optional loadStyles?: boolean;
 ```
 
-Defined in: fl.ui/src/index.ts:35
+Defined in: modules/projects/fl.ui/src/index.ts:35
 
 Whether to load styles automatically (default: true)
 
@@ -41,6 +41,6 @@ Whether to load styles automatically (default: true)
 optional styleVariant?: FlUIStyleVariant;
 ```
 
-Defined in: fl.ui/src/index.ts:42
+Defined in: modules/projects/fl.ui/src/index.ts:42
 
 Style variant to use (default: "veela-advanced")

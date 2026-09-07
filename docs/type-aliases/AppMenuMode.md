@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,4 +10,4 @@
 type AppMenuMode = "launcher" | "bookmarks";
 ```
 
-Defined in: fl.ui/src/ui/navigation/app-menu/AppMenu.ts:173
+Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/AppMenu.ts:173

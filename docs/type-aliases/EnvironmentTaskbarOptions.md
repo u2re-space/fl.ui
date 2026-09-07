@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type EnvironmentTaskbarOptions = object;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:70
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:70
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:70
 device: ShellDeviceStatus;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:71
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:71
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:71
 focusedTaskId: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:75
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:75
 
 Which pinned task is highlighted (home | viewer | window id).
 
@@ -42,7 +42,7 @@ Which pinned task is highlighted (home | viewer | window id).
 optional onCloseWindow?: (viewId) => void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:81
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:81
 
 Close a managed window.
 
@@ -64,7 +64,7 @@ Close a managed window.
 onHome: () => void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:72
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:72
 
 #### Returns
 
@@ -78,7 +78,7 @@ Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:72
 optional onMinimizeWindow?: (viewId) => void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:79
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:79
 
 Minimize a managed window (desktop Win toggle).
 
@@ -100,7 +100,7 @@ Minimize a managed window (desktop Win toggle).
 onViewer: () => void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:73
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:73
 
 #### Returns
 
@@ -114,7 +114,7 @@ Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:73
 optional onWindowTask?: (viewId) => void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:77
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:77
 
 Activate / restore a managed window task (view id).
 

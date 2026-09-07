@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function getFlUIConfig(): FlUIConfig;
 ```
 
-Defined in: fl.ui/src/index.ts:64
+Defined in: modules/projects/fl.ui/src/index.ts:64
 
 Get current fl.ui configuration
 

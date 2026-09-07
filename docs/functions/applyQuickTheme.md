@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function applyQuickTheme(mode): void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:96
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:96
 
 Apply light/dark from Quick Settings without importing app Theme.ts (fl.ui ↔ subsystem cycle).
 WHY: Must mirror `syncBrowserChromeTheme` — `data-scheme` + hosts + body — or env-shell /

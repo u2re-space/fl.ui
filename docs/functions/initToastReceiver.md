@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function initToastReceiver(): () => void;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:498
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:502
 
 Initialize toast listener for receiving broadcasts
 Call this in main thread contexts (content scripts, popup, etc.)

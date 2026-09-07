@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function applyNightFilter(value): void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:250
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:250
 
 value: 0-100 night-light intensity mapped to overlay opacity 0-1.
 

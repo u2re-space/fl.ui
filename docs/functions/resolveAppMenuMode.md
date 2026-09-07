@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function resolveAppMenuMode(): AppMenuMode | null;
 ```
 
-Defined in: fl.ui/src/ui/navigation/app-menu/AppMenu.ts:175
+Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/AppMenu.ts:175
 
 ## Returns
 

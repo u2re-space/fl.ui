@@ -1,8 +1,8 @@
-**@fest-lib/fl-ui v1.0.13**
+**@fest-lib/fl-ui v1.0.18**
 
 ***
 
-# @fest-lib/fl-ui v1.0.13
+# @fest-lib/fl-ui v1.0.18
 
 ## Classes
 
@@ -91,6 +91,7 @@
 - [~~createAnchoredWindow~~](functions/createAnchoredWindow.md)
 - [createAnchoredWindowShell](functions/createAnchoredWindowShell.md)
 - [createChromeBookmarksMenuApi](functions/createChromeBookmarksMenuApi.md)
+- [decodeToastMessage](functions/decodeToastMessage.md)
 - [ensureOverlayRoot](functions/ensureOverlayRoot.md)
 - [ensureWindowElementsDefined](functions/ensureWindowElementsDefined.md)
 - [formatAsCode](functions/formatAsCode.md)

@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type ToastKind = "info" | "success" | "warning" | "error";
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:17
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:20
 
 Standalone Toast System (kept in sync with subsystem `boot/toast.ts`).
 

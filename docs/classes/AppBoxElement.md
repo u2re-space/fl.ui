@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Class: AppBoxElement
 
-Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:31
+Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:31
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:31
 new AppBoxElement(): AppBoxElement;
 ```
 
-Defined in: fl.ui/node\_modules/typescript/lib/lib.dom.d.ts:17894
+Defined in: node\_modules/typescript/lib/lib.dom.d.ts:17894
 
 #### Returns
 
@@ -40,7 +40,7 @@ HTMLElement.constructor
 connectedCallback(): void;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:32
+Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:32
 
 #### Returns
 

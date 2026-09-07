@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -16,4 +16,4 @@ type ToastPosition =
   | "bottom-right";
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:18
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:21

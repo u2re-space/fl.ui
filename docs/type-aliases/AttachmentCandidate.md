@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -20,4 +20,4 @@ type AttachmentCandidate =
 };
 ```
 
-Defined in: fl.ui/src/ui/inputs/attachments/AttachmentSources.ts:11
+Defined in: modules/projects/fl.ui/src/ui/inputs/attachments/AttachmentSources.ts:11

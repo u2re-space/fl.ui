@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type ModalController = object;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:49
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:49
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:49
 close: (reason?) => void;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:52
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:52
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:52
 dispose: () => void;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:53
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:53
 
 #### Returns
 
@@ -54,7 +54,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:53
 element: HTMLDialogElement | HTMLDivElement;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:50
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:50
 
 ***
 
@@ -64,4 +64,4 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:50
 panel: HTMLElement;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:51
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:51

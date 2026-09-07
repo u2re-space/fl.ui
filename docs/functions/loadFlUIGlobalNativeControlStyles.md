@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function loadFlUIGlobalNativeControlStyles(): Promise<void>;
 ```
 
-Defined in: fl.ui/src/styles/index.ts:26
+Defined in: modules/projects/fl.ui/src/styles/index.ts:26
 
 Host-wide native control chrome (legacy). Prefer scoping with `.btn` / field mixins.
 

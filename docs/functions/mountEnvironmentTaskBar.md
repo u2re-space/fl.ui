@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function mountEnvironmentTaskBar(opts): MountTaskBarResult;
 ```
 
-Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:155
+Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:155
 
 Task bar with Home / Markdown pins + dynamic open-window tasks and reactive system tray.
 

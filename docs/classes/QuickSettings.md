@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Class: QuickSettings
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:412
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:412
 
 Win11-like Quick Settings flyout: theme toggle + placeholder tiles + night/brightness sliders.
 
@@ -27,7 +27,7 @@ helpers, which wrap `ChromeFlyout` (mirrors `CalendarFlyout.ts`).
 new QuickSettings(): QuickSettings;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:413
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:413
 
 #### Returns
 
@@ -45,7 +45,7 @@ Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:413
 adoptedStyleSheets: CSSStyleSheet[];
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:149
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:149
 
 #### Inherited from
 
@@ -59,7 +59,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:149
 optional initialAttributes?: Record<string, any> | (() => Record<string, any>);
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:147
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:147
 
 #### Inherited from
 
@@ -73,7 +73,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:147
 styleLibs: HTMLStyleElement[];
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:148
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:148
 
 #### Inherited from
 
@@ -87,7 +87,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:148
 theme: string = "default";
 ```
 
-Defined in: fl.ui/src/ui/base/UIElement.ts:15
+Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:15
 
 #### Inherited from
 
@@ -101,7 +101,7 @@ Defined in: fl.ui/src/ui/base/UIElement.ts:15
 static optional formAssociated?: boolean;
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:134
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:134
 
 #### Inherited from
 
@@ -115,7 +115,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:134
 static optional observedAttributes?: string[];
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:133
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:133
 
 #### Inherited from
 
@@ -129,7 +129,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:133
 optional $init(): void;
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:156
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:156
 
 #### Returns
 
@@ -147,7 +147,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:156
 optional adoptedCallback(): void | QuickSettings | undefined;
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:125
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:125
 
 #### Returns
 
@@ -165,10 +165,11 @@ Defined in: lur.e/src/lure/misc/Glit.ts:125
 optional attributeChangedCallback(
    name, 
    oldValue, 
-   newValue): void | QuickSettings | undefined;
+   newValue
+): void | QuickSettings | undefined;
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:126
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:126
 
 #### Parameters
 
@@ -200,7 +201,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:126
 close(): void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:505
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:505
 
 #### Returns
 
@@ -214,7 +215,7 @@ Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:505
 connectedCallback(): this;
 ```
 
-Defined in: fl.ui/src/ui/base/UIElement.ts:28
+Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:28
 
 #### Returns
 
@@ -232,7 +233,7 @@ Defined in: fl.ui/src/ui/base/UIElement.ts:28
 createShadowRoot(): ShadowRoot;
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:155
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:155
 
 #### Returns
 
@@ -250,7 +251,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:155
 optional disconnectedCallback(): void | QuickSettings | undefined;
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:124
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:124
 
 #### Returns
 
@@ -268,7 +269,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:124
 loadStyleLibrary(module): void | QuickSettings | undefined;
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:154
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:154
 
 #### Parameters
 
@@ -292,7 +293,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:154
 onInitialize(): this;
 ```
 
-Defined in: fl.ui/src/ui/base/UIElement.ts:37
+Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:37
 
 #### Returns
 
@@ -310,7 +311,7 @@ Defined in: fl.ui/src/ui/base/UIElement.ts:37
 onRender(): this;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:492
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:492
 
 #### Returns
 
@@ -328,7 +329,7 @@ Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:492
 open(): void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:498
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:498
 
 #### Returns
 
@@ -342,7 +343,7 @@ Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:498
 render(): any;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:417
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:417
 
 #### Returns
 
@@ -360,7 +361,7 @@ Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:417
 styleLayers(): string[];
 ```
 
-Defined in: lur.e/src/lure/misc/Glit.ts:150
+Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:150
 
 #### Returns
 
@@ -378,7 +379,7 @@ Defined in: lur.e/src/lure/misc/Glit.ts:150
 styles(): CSSStyleSheet | null;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:416
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:416
 
 #### Returns
 
@@ -398,7 +399,7 @@ UIElement.styles
 toggle(anchor?): void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:511
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:511
 
 #### Parameters
 

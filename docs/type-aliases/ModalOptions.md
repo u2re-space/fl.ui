@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type ModalOptions = object;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:38
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:38
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:38
 optional className?: string;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:41
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:41
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:41
 optional closeOnBackdrop?: boolean;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:43
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:43
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:43
 optional closeOnEscape?: boolean;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:44
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:44
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:44
 content: HTMLElement | DocumentFragment;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:39
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:39
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:39
 optional id?: string;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:40
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:40
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:40
 optional initialFocus?: HTMLElement | string | null;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:42
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:42
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:42
 optional onClose?: (reason) => void;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:46
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:46
 
 #### Parameters
 
@@ -100,4 +100,4 @@ Defined in: fl.ui/src/ui/containers/modal/Modal.ts:46
 optional useNativeDialog?: boolean;
 ```
 
-Defined in: fl.ui/src/ui/containers/modal/Modal.ts:45
+Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:45

@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function collectAttachmentCandidates(data, source): AttachmentCandidate[];
 ```
 
-Defined in: fl.ui/src/ui/inputs/attachments/AttachmentSources.ts:53
+Defined in: modules/projects/fl.ui/src/ui/inputs/attachments/AttachmentSources.ts:53
 
 Collect actual files and URI-list links from a browser transfer payload.
 Text-only data is deliberately ignored so an editable composer keeps native

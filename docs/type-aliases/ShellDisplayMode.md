@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -16,6 +16,6 @@ type ShellDisplayMode =
   | "unknown";
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:29
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:29
 
 Shell display surface for chrome / status overlay decisions.

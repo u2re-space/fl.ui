@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function ensureWindowElementsDefined(): void;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:14
+Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:14
 
 Register custom elements when missing (idempotent).
 

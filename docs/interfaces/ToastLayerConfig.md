@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: ToastLayerConfig
 
-Defined in: fl.ui/src/misc/Toast.ts:29
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:32
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: fl.ui/src/misc/Toast.ts:29
 optional containerId?: string;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:30
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:33
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: fl.ui/src/misc/Toast.ts:30
 optional maxToasts?: number;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:32
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:35
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: fl.ui/src/misc/Toast.ts:32
 optional position?: ToastPosition;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:31
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:34
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: fl.ui/src/misc/Toast.ts:31
 optional zIndex?: number;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:33
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:36

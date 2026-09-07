@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type ShellDeviceStatus = object;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:329
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:329
 
 Single subscription for battery + network; bind into multiple `H` trays with the same refs.
 
@@ -22,7 +22,7 @@ Single subscription for battery + network; bind into multiple `H` trays with the
 batteryIcon: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:332
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:332
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:332
 batteryPct: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:334
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:334
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:334
 batteryTitle: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:333
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:333
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:333
 dispose: () => void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:335
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:335
 
 #### Returns
 
@@ -66,7 +66,7 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:335
 networkIcon: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:330
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:330
 
 ***
 
@@ -76,4 +76,4 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:330
 networkTitle: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:331
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:331

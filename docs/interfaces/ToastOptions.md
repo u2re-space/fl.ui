@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: ToastOptions
 
-Defined in: fl.ui/src/misc/Toast.ts:20
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:23
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: fl.ui/src/misc/Toast.ts:20
 optional duration?: number;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:23
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:26
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: fl.ui/src/misc/Toast.ts:23
 optional kind?: ToastKind;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:22
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:25
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: fl.ui/src/misc/Toast.ts:22
 message: string;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:21
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:24
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: fl.ui/src/misc/Toast.ts:21
 optional onClick?: () => void;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:26
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:29
 
 #### Returns
 
@@ -60,7 +60,7 @@ Defined in: fl.ui/src/misc/Toast.ts:26
 optional persistent?: boolean;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:24
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:27
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: fl.ui/src/misc/Toast.ts:24
 optional position?: ToastPosition;
 ```
 
-Defined in: fl.ui/src/misc/Toast.ts:25
+Defined in: modules/projects/fl.ui/src/misc/Toast.ts:28

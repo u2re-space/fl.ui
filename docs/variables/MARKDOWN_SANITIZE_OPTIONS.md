@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 const MARKDOWN_SANITIZE_OPTIONS: object;
 ```
 
-Defined in: fl.ui/src/ui/markdown/render.ts:29
+Defined in: modules/projects/fl.ui/src/ui/markdown/render.ts:29
 
 ## Type Declaration
 

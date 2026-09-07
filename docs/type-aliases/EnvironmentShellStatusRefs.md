@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type EnvironmentShellStatusRefs = object;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:302
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:302
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:302
 mqLabel: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:306
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:306
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:306
 navEcho: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:305
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:305
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:305
 selectedPath: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:303
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:303
 
 ***
 
@@ -50,4 +50,4 @@ Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:303
 viewerStatus: refType<string>;
 ```
 
-Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:304
+Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:304

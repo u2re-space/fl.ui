@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function subscribeNativeWindowChrome(options): () => void;
 ```
 
-Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:143
+Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:143
 
 Subscribe to WCO + display-mode changes. Returns dispose.
 

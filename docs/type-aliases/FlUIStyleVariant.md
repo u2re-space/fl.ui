@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type FlUIStyleVariant = "veela-basic" | "veela-advanced";
 ```
 
-Defined in: fl.ui/src/index.ts:31
+Defined in: modules/projects/fl.ui/src/index.ts:31
 
 FL.UI - UI Components Library
 

@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function getStoredThemePreference(): QuickThemeMode | "auto";
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:142
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:142
 
 Stored preference: light | dark | auto (missing → auto on Cap / OS-follow).
 

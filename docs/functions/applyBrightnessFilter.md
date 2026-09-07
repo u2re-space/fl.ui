@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.13**](../README.md)
+[**@fest-lib/fl-ui v1.0.18**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function applyBrightnessFilter(value): void;
 ```
 
-Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:264
+Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:264
 
 value: 0-100 brightness stub; 50 == neutral (`brightness(1)`), mapped to ~0.4-1.2.
 
