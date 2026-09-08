@@ -29,14 +29,42 @@ export class CwRawEditorElement extends HTMLElement {
     #scroll: HTMLDivElement | null = null;
     #unsubScreen: (() => void) | null = null;
     #unsubEmpty: (() => void) | null = null;
+    #unsubNewlines: (() => void) | null = null;
+    #newlineArmed = false;
 
     get value(): string {
-        return this.#code?.textContent ?? "";
+        const t = this.#code?.textContent ?? "";
+        /* WHY: one trailing LF is the HTML swallow pad, not a user blank line. */
+        return t.endsWith("\n") ? t.slice(0, -1) : t;
     }
 
     set value(next: string) {
         const code = this.#ensureTree();
-        if (code.textContent !== next) code.textContent = next;
+        /* WHY: pre/code hides a trailing LF — keep an extra one so last empty rows paint. */
+        code.textContent = `${next}\n`;
+    }
+
+    /* WHY: empty contenteditable has no line box — Capacitor caret jumps off-canvas.
+     * Keep one newline so "|" sits on a real row; scroll to origin. */
+    clearDraft(): void {
+        const code = this.#ensureTree();
+        code.textContent = "\n";
+        if (this.#scroll) {
+            this.#scroll.scrollTop = 0;
+            this.#scroll.scrollLeft = 0;
+        }
+        try {
+            this.highlight("markdown");
+        } catch {
+            /* overlay optional */
+        }
+    }
+
+    placeCaretAtStart(): void {
+        this.#placeCaretAtStartOnce();
+        if (isNativeCapacitorHost() && typeof requestAnimationFrame === "function") {
+            requestAnimationFrame(() => this.#placeCaretAtStartOnce());
+        }
     }
 
     get sourceElement(): HTMLElement | null {
@@ -65,6 +93,7 @@ export class CwRawEditorElement extends HTMLElement {
         }
         this.#ensureTree();
         this.#bindEmptyFocus();
+        this.#bindNewlines();
         if (isNativeCapacitorHost()) this.#bindKeyboardPad();
     }
 
@@ -73,6 +102,101 @@ export class CwRawEditorElement extends HTMLElement {
         this.#unsubScreen = null;
         this.#unsubEmpty?.();
         this.#unsubEmpty = null;
+        this.#unsubNewlines?.();
+        this.#unsubNewlines = null;
+    }
+
+    /* WHY: Android WebView often skips insertParagraph; HTML also eats a trailing LF. */
+    #bindNewlines(): void {
+        const code = this.#code;
+        if (!code || this.#unsubNewlines) return;
+        const onBefore = (e: Event): void => {
+            const ev = e as InputEvent;
+            if (ev.inputType !== "insertParagraph" && ev.inputType !== "insertLineBreak") return;
+            ev.preventDefault();
+            this.#newlineArmed = true;
+            this.#insertNewline();
+        };
+        const onKey = (e: KeyboardEvent): void => {
+            if (e.key !== "Enter" || e.altKey || e.metaKey || e.ctrlKey) return;
+            if (this.#newlineArmed) return;
+            e.preventDefault();
+            e.stopPropagation();
+            this.#insertNewline();
+        };
+        const onKeyUp = (e: KeyboardEvent): void => {
+            if (e.key === "Enter") this.#newlineArmed = false;
+        };
+        code.addEventListener("beforeinput", onBefore);
+        code.addEventListener("keydown", onKey);
+        this.addEventListener("keydown", onKey);
+        code.addEventListener("keyup", onKeyUp);
+        this.addEventListener("keyup", onKeyUp);
+        this.#unsubNewlines = () => {
+            code.removeEventListener("beforeinput", onBefore);
+            code.removeEventListener("keydown", onKey);
+            this.removeEventListener("keydown", onKey);
+            code.removeEventListener("keyup", onKeyUp);
+            this.removeEventListener("keyup", onKeyUp);
+        };
+    }
+
+    #caretAtDomEnd(): boolean {
+        const code = this.#code;
+        if (!code) return false;
+        const root = this.shadowRoot as (ShadowRoot & { getSelection?: () => Selection | null }) | null;
+        const sel = root?.getSelection?.() ?? document.getSelection();
+        if (!sel || !sel.rangeCount || !sel.isCollapsed) return false;
+        const range = sel.getRangeAt(0);
+        const text = code.firstChild;
+        if (text && text.nodeType === Node.TEXT_NODE) {
+            return range.endContainer === text && range.endOffset >= text.textContent!.length;
+        }
+        return range.endContainer === code;
+    }
+
+    #placeCaretBeforeTrailingPad(): void {
+        const code = this.#code;
+        const text = code?.firstChild;
+        if (!code || !text || text.nodeType !== Node.TEXT_NODE) return;
+        const data = text.textContent || "";
+        const off = data.endsWith("\n") ? Math.max(0, data.length - 1) : data.length;
+        const root = this.shadowRoot as (ShadowRoot & { getSelection?: () => Selection | null }) | null;
+        const sel = root?.getSelection?.() ?? document.getSelection();
+        if (!sel) return;
+        const range = document.createRange();
+        range.setStart(text, off);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
+    #insertNewline(): void {
+        const code = this.#code;
+        if (!code) return;
+        code.focus({ preventScroll: true });
+        if (this.#caretAtDomEnd()) this.#placeCaretBeforeTrailingPad();
+        let ok = false;
+        try {
+            ok = document.execCommand("insertText", false, "\n");
+        } catch {
+            ok = false;
+        }
+        if (!ok) {
+            const root = this.shadowRoot as (ShadowRoot & { getSelection?: () => Selection | null }) | null;
+            const sel = root?.getSelection?.() ?? document.getSelection();
+            if (sel && sel.rangeCount) {
+                const range = sel.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(document.createTextNode("\n"));
+                range.collapse(false);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        }
+        const data = code.textContent || "";
+        if (!data.endsWith("\n")) code.append("\n");
+        code.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     }
 
     /* WHY: calc-size height can be shorter than the scrollport — tap empty chrome, not the source. */
@@ -95,15 +219,37 @@ export class CwRawEditorElement extends HTMLElement {
     #focusSource(): void {
         const code = this.#code;
         if (!code) return;
+        const empty = !(code.textContent || "").replace(/\n/g, "").trim();
+        if (empty) {
+            this.#placeCaretAtStartOnce();
+            return;
+        }
+        code.focus({ preventScroll: true });
+        this.#placeCaretBeforeTrailingPad();
+    }
+
+    #placeCaretAtStartOnce(): void {
+        const code = this.#code;
+        if (!code) return;
         code.focus({ preventScroll: true });
         const root = this.shadowRoot as (ShadowRoot & { getSelection?: () => Selection | null }) | null;
         const sel = root?.getSelection?.() ?? document.getSelection();
         if (!sel) return;
         const range = document.createRange();
-        range.selectNodeContents(code);
-        range.collapse(false);
+        const text = code.firstChild;
+        if (text && text.nodeType === Node.TEXT_NODE) {
+            range.setStart(text, 0);
+            range.collapse(true);
+        } else {
+            range.selectNodeContents(code);
+            range.collapse(true);
+        }
         sel.removeAllRanges();
         sel.addRange(range);
+        if (this.#scroll) {
+            this.#scroll.scrollTop = 0;
+            this.#scroll.scrollLeft = 0;
+        }
     }
 
     /* WHY: do not import new @fest-lib/dom names — package `exports` is dist/dom.js.

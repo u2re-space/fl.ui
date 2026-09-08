@@ -66,8 +66,10 @@ export const bindCodeEditorKeys = (source: HTMLElement): (() => void) => {
 
     const onFrameKey = (event: KeyboardEvent): void => {
         if (event.defaultPrevented || event.altKey || event.metaKey || event.ctrlKey) return;
-        if (document.activeElement === source) return;
         if (event.key !== "Enter") return;
+        /* WHY: Capacitor reports activeElement as the CE host, not `code`.
+         * Stealing Enter then only re-arms — newline never lands. */
+        if (event.composedPath().includes(source)) return;
         event.preventDefault();
         arm();
     };
