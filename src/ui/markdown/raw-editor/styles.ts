@@ -33,6 +33,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     display: none !important;
 }
 .cw-raw-editor__scroll {
+    inset: 0;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -40,7 +41,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     min-height: 0;
     overflow-x: auto !important;
     overflow-y: auto !important;
-    overscroll-behavior: contain;
+    overscroll-behavior: none;
     overflow-anchor: none;
     cursor: text;
     padding: var(--view-padding, 0.75rem);
@@ -51,7 +52,9 @@ export const RAW_EDITOR_SHADOW_CSS = `
     container-type: size;
     z-index: 1;
     pointer-events: auto;
-    overscroll-behavior: none;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    scrollbar-color: var(--view-fg, light-dark(#1f2328, #e6edf3)) transparent;
 }
 
 .cw-raw-editor__pre {
@@ -77,6 +80,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     max-block-size: none !important;
     max-height: none !important;
     pointer-events: auto;
+    inset: 0;
 }
 
 .cw-raw-editor__source,
@@ -115,6 +119,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     z-index: 2;
     pointer-events: auto;
     position: relative;
+    inset: 0;
 }
 .cw-raw-editor__source.code-highlight-painted:not(.code-highlight-source-only) {
     color: transparent;
@@ -127,6 +132,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     -webkit-text-fill-color: currentColor;
 }
 .code-highlight-overlay {
+    position: absolute !important;
     display: block;
     pointer-events: none;
     user-select: none;
@@ -143,10 +149,6 @@ export const RAW_EDITOR_SHADOW_CSS = `
     tab-size: 4;
     font: inherit;
     line-height: max(1.35em, var(--code-line-height, 1.45));
-    position: absolute !important;
-    inset: auto !important;
-    inset-inline-start: 0px !important;
-    inset-block-start: 0px !important;
     inline-size: stretch;
     block-size: stretch;
     min-block-size: stretch !important;
@@ -156,6 +158,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
     scrollbar-width: none;
     pointer-events: none !important;
     opacity: 1;
+    inset: 0;
 }
 .code-highlight-overlay__gutter {
     position: absolute;
@@ -306,6 +309,7 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
 .cw-raw-editor__scroll {
     box-sizing: border-box;
     position: absolute;
+    inset: 0;
     top: 0;
     left: 0;
     right: 0;
@@ -323,9 +327,11 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     padding: var(--view-padding, 0.75rem);
     z-index: 1;
     pointer-events: auto;
-    overscroll-behavior: none;
     cursor: text;
     container-type: size;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    scrollbar-color: var(--view-fg, light-dark(#1f2328, #e6edf3)) transparent;
 }
 .cw-raw-editor__pre {
     position: relative;
