@@ -109,7 +109,9 @@ export const RAW_EDITOR_SHADOW_CSS = `
     white-space: pre;
     word-break: normal;
     overflow-wrap: normal;
-    color: transparent !important;
+    /* WHY: Android/source-only drops the overlay — transparent !important here
+     * hid every glyph. Only paint-over-source stays invisible. */
+    color: var(--view-fg, inherit);
     background: transparent !important;
     outline: none;
     caret-color: var(--view-fg, light-dark(#1f2328, #e6edf3));
@@ -122,14 +124,14 @@ export const RAW_EDITOR_SHADOW_CSS = `
     inset: 0;
 }
 .cw-raw-editor__source.code-highlight-painted:not(.code-highlight-source-only) {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
     caret-color: var(--view-fg, light-dark(#1f2328, #e6edf3));
 }
 .cw-raw-editor__source.code-highlight-source-only,
 .cw-raw-editor__source.code-highlight-inplace {
-    color: light-dark(#1f2328, #e6edf3);
-    -webkit-text-fill-color: currentColor;
+    color: var(--view-fg, light-dark(#1f2328, #e6edf3)) !important;
+    -webkit-text-fill-color: currentColor !important;
 }
 .code-highlight-overlay {
     position: absolute !important;
@@ -381,7 +383,8 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     white-space: pre;
     word-break: normal;
     overflow-wrap: normal;
-    color: inherit;
+    color: var(--view-fg, #e6edf3) !important;
+    -webkit-text-fill-color: currentColor !important;
     background: transparent;
     outline: none;
     caret-color: var(--view-fg, currentColor);
@@ -389,15 +392,10 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     z-index: 2;
     pointer-events: auto;
 }
-.cw-raw-editor__source.code-highlight-painted:not(.code-highlight-source-only) {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    caret-color: var(--view-fg, currentColor);
-}
 .cw-raw-editor__source.code-highlight-source-only,
 .cw-raw-editor__source.code-highlight-inplace {
-    color: var(--view-fg, #e6edf3);
-    -webkit-text-fill-color: currentColor;
+    color: var(--view-fg, #e6edf3) !important;
+    -webkit-text-fill-color: currentColor !important;
 }
 .code-highlight-overlay {
     display: block;

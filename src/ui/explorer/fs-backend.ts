@@ -52,6 +52,39 @@ export function normalizeVirtualPath(path: string, asDirectory = true): string {
 }
 
 /**
+ * Material Files FileProvider encodes `file:///storage/emulated/0/Notes.txt`
+ * as the last segment (sometimes twice). SAF uses `primary:` / `home:`.
+ */
+function unwrapContentFileOsPath(raw: string): string {
+  let cur = String(raw || "").trim();
+  if (!cur) return "";
+  for (let i = 0; i < 4; i++) {
+    try {
+      const next = decodeURIComponent(cur);
+      if (next === cur) break;
+      cur = next;
+    } catch {
+      break;
+    }
+  }
+  if (cur.startsWith("/file:")) cur = cur.slice(1);
+  const fileAt = cur.toLowerCase().indexOf("file:");
+  if (fileAt >= 0) {
+    try {
+      const u = new URL(cur.slice(fileAt));
+      const path = decodeURIComponent(u.pathname || "");
+      if (path) return path;
+    } catch {
+      const rest = cur.slice(fileAt).replace(/^file:\/\//i, "");
+      if (rest.startsWith("/")) return rest;
+    }
+  }
+  const pathOnly = cur.replace(/^content:\/\/[^/]+/i, "");
+  if (/^\/(?:storage\/emulated\/0|mnt\/sdcard|sdcard)(?:\/|$)/i.test(pathOnly)) return pathOnly;
+  return "";
+}
+
+/**
  * WHY: Transfer / Android send `/storage/emulated/0/…`, `file://`, or
  * `content://…/primary:Download/…`. Explorer lists that as `/sdcard/…`.
  * Do not map `/saf/` — that is Explorer's own tree, not Transfer landing.
@@ -75,9 +108,14 @@ export function toExplorerStoragePath(path: string, asDirectory = true): string 
       decoded = p;
     }
     const id = decoded.match(/(?:primary|home):([^?#]*)/i);
-    if (!id) return "";
-    const rel = String(id[1] || "").replace(/^\/+/, "");
-    p = rel ? `/sdcard/${rel}` : "/sdcard/";
+    if (id) {
+      const rel = String(id[1] || "").replace(/^\/+/, "");
+      p = rel ? `/sdcard/${rel}` : "/sdcard/";
+    } else {
+      const embedded = unwrapContentFileOsPath(decoded);
+      if (!embedded) return "";
+      p = embedded;
+    }
   }
   p = p.replace(/\\/g, "/");
   p = p.replace(/^(?:\/storage\/emulated\/0|\/mnt\/sdcard|storage\/emulated\/0|mnt\/sdcard)(?=\/|$)/i, "/sdcard");

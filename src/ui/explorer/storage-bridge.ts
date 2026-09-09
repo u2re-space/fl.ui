@@ -67,8 +67,20 @@ const capacitorInvoke = async (
         INVOKE_MS,
         { ok: false, error: "timeout" }
     );
-    const echo = r?.echo && typeof r.echo === "object" ? (r.echo as Record<string, unknown>) : {};
-    return { ...(r || {}), ...echo };
+    const raw = (r && typeof r === "object" ? r : {}) as Record<string, unknown>;
+    const wrapped = raw.value && typeof raw.value === "object" ? (raw.value as Record<string, unknown>) : raw;
+    let echo: Record<string, unknown> = {};
+    if (wrapped.echo && typeof wrapped.echo === "object") {
+        echo = wrapped.echo as Record<string, unknown>;
+    } else if (typeof wrapped.echo === "string") {
+        try {
+            const parsed = JSON.parse(wrapped.echo) as unknown;
+            if (parsed && typeof parsed === "object") echo = parsed as Record<string, unknown>;
+        } catch {
+            echo = {};
+        }
+    }
+    return { ...wrapped, ...echo };
 };
 
 /**
@@ -177,17 +189,9 @@ export const readNativeStorageFile = async (
     const readOnce = async (): Promise<{ file: File | null; error: string }> => {
         const echo = await capacitorInvoke("storage:read", { root: parsed.root, path: parsed.rel });
         const name = String(echo.name || virtualPath.split("/").filter(Boolean).pop() || "file");
-        const mime = String(echo.mime || echo.mimeType || "application/octet-stream");
         const error = String(echo.error || "");
-        const text = String(echo.text || echo.content || "");
-        if (text) {
-            return { file: new File([text], name, { type: mime || "text/markdown" }), error };
-        }
-        const data = String(echo.data || echo.dataUrl || "");
-        if (data) {
-            return { file: await dataUrlToFile(data, name, mime), error };
-        }
-        return { file: null, error };
+        const file = await fileFromReadEcho(echo, name);
+        return { file, error };
     };
     let got = await readOnce();
     if (got.file) return got.file;
@@ -202,6 +206,104 @@ export const readNativeStorageFile = async (
         }
     }
     return got.file;
+};
+
+const fileFromReadEcho = async (
+    echo: Record<string, unknown>,
+    fallbackName: string
+): Promise<File | null> => {
+    const name = String(echo.name || fallbackName || "file");
+    const mime = String(echo.mime || echo.mimeType || "application/octet-stream");
+    const text = echo.text != null || echo.content != null
+        ? String(echo.text || echo.content || "")
+        : "";
+    /* WHY: empty File used to look like a successful Open — viewer then painted nothing. */
+    if (text) return new File([text], name, { type: mime || "text/markdown" });
+    const data = String(echo.data || echo.dataUrl || "");
+    if (data) return dataUrlToFile(data, name, mime);
+    return null;
+};
+
+export type CapacitorLoadedDocument = {
+    content: string;
+    name: string;
+    mime: string;
+    uri?: string;
+    virtualPath?: string;
+    stashedAt?: number;
+};
+
+/**
+ * Canonical Capacitor document read (`document:load`).
+ * INVARIANT: UTF-8 `content` only — no data: URLs, no WebView fetch of content://.
+ */
+const documentFromLoadEcho = (echo: Record<string, unknown>): CapacitorLoadedDocument | null => {
+    const nested = echo.echo && typeof echo.echo === "object"
+        ? (echo.echo as Record<string, unknown>)
+        : null;
+    const content = String(echo.content ?? echo.text ?? nested?.content ?? nested?.text ?? "");
+    if (!content) return null;
+    const virtualPath =
+        String(echo.virtualPath || echo.path || nested?.virtualPath || nested?.path || "").trim()
+        || toNativeStorageVirtualPath(String(echo.uri || echo.url || nested?.uri || nested?.url || ""));
+    return {
+        content,
+        name: String(echo.name || echo.title || nested?.name || nested?.title || "document.txt"),
+        mime: String(echo.mime || nested?.mime || "text/plain"),
+        uri: String(echo.uri || echo.url || nested?.uri || nested?.url || "").trim() || undefined,
+        virtualPath: virtualPath || undefined,
+        stashedAt: Number(echo.stashedAt || nested?.stashedAt || 0) || undefined
+    };
+};
+
+export const loadCapacitorDocument = async (input: {
+    pending?: boolean;
+    uri?: string;
+    path?: string;
+}): Promise<CapacitorLoadedDocument | null> => {
+    const payload = {
+        pending: Boolean(input.pending),
+        uri: String(input.uri || "").trim(),
+        url: String(input.uri || "").trim(),
+        path: String(input.path || "").trim(),
+        virtualPath: String(input.path || "").trim()
+    };
+    let echo = await capacitorInvoke("document:load", payload);
+    let doc = documentFromLoadEcho(echo);
+    if (doc) return doc;
+    const retryUri = payload.uri || String(echo.uri || echo.url || "").trim();
+    const retryPath = payload.path || String(echo.virtualPath || echo.path || "").trim();
+    const err = String(echo.error || "");
+    /* WHY: no-stash pending must not open the all-files Settings sheet on every launch. */
+    if ((retryUri || retryPath) && /unreadable|all-files|EACCES|permission|denied/i.test(err)) {
+        try {
+            await requestAllFilesAccess();
+        } catch {
+            /* user dismissed */
+        }
+        if (input.pending) await capacitorInvoke("launcher:restash-share-file", {});
+        echo = await capacitorInvoke("document:load", {
+            pending: false,
+            uri: retryUri,
+            url: retryUri,
+            path: retryPath,
+            virtualPath: retryPath
+        });
+        doc = documentFromLoadEcho(echo);
+    }
+    return doc;
+};
+
+/** ACTION_VIEW `content://` / `file://` — ContentResolver, then `/sdcard/` unwrap. */
+export const readNativeStorageUri = async (uri: string): Promise<File | null> => {
+    const target = String(uri || "").trim();
+    if (!/^(?:content|file):/i.test(target)) return null;
+    const echo = await capacitorInvoke("storage:read-uri", { uri: target });
+    const fromUri = await fileFromReadEcho(echo, target.split("/").filter(Boolean).pop() || "file");
+    if (fromUri) return fromUri;
+    const mapped = toNativeStorageVirtualPath(target);
+    if (mapped) return readNativeStorageFile(mapped, { requestAccess: false });
+    return null;
 };
 
 /** content:// or file:// for Document ACTION_VIEW — do not read bytes. */
@@ -426,13 +528,15 @@ export const openNativeStorageDocument = async (): Promise<NativeOpenDocumentRes
         || toNativeStorageVirtualPath(uri);
     const name = String(echo.name || virtualPath.split("/").filter(Boolean).pop() || "document.md");
     const mime = String(echo.mime || echo.mimeType || "text/markdown");
-    const text = String(echo.text || echo.content || "");
+    let text = String(echo.text || echo.content || "");
+    if (!text && uri) {
+        const loaded = await loadCapacitorDocument({ uri, path: virtualPath });
+        if (loaded?.content) {
+            text = loaded.content;
+        }
+    }
     let file: File | null = null;
     if (text) file = new File([text], name, { type: mime || "text/markdown" });
-    else {
-        const data = String(echo.data || echo.dataUrl || "");
-        if (data) file = await dataUrlToFile(data, name, mime);
-    }
     const ok = r?.ok !== false && Boolean(file);
     return {
         ok,

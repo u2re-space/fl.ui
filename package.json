@@ -1,7 +1,7 @@
 {
     "name": "@fest-lib/fl-ui",
     "description": "fest-lib FL.UI: windows, taskbar, app menu, Speed Dial (shapeless tiles). Dev: npm run dev",
-    "version": "1.0.29",
+    "version": "1.0.30",
     "license": "MIT",
     "type": "module",
     "sideEffects": true,

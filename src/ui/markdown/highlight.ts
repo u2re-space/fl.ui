@@ -250,6 +250,9 @@ const applyCssTokenHighlights = (host: HTMLElement, html: string): void => {
 
 const isCapacitorNative = (): boolean => {
     try {
+        if (typeof document !== "undefined" && document.documentElement.dataset.cwspNativeShell === "capacitor") {
+            return true;
+        }
         const cap = (globalThis as { Capacitor?: { isNativePlatform?: () => boolean } }).Capacitor;
         return typeof cap?.isNativePlatform === "function" && cap.isNativePlatform();
     } catch {
@@ -352,7 +355,8 @@ export const attachCodeHighlight = (
             if (painted.language && painted.language !== nextLanguage) {
                 stampCodeLanguage(host, painted.language);
             }
-            applyCssTokenHighlights(host, painted.html);
+            /* WHY: CSS Highlight on Capacitor WebView can paint over glyphs with no color. */
+            if (!isCapacitorNative()) applyCssTokenHighlights(host, painted.html);
             return;
         }
         const next = readHostText(host);

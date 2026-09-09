@@ -34,6 +34,7 @@ export class CwRawEditorElement extends HTMLElement {
 
     get value(): string {
         const t = this.#code?.textContent ?? "";
+        /* WHY: do not #ensureTree here — flush would mint an empty code node. */
         /* WHY: one trailing LF is the HTML swallow pad, not a user blank line. */
         return t.endsWith("\n") ? t.slice(0, -1) : t;
     }
