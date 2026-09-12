@@ -8,6 +8,33 @@
 
 import { toExplorerStoragePath } from "./fs-backend";
 
+export type NativeWriteContent = string | Uint8Array;
+
+/** WHY: keep encode local — `navigation/explorer` is a symlink; `../markdown` misses. */
+const bytesToCompactHex = (bytes: Uint8Array): string => {
+    let out = "";
+    for (let i = 0; i < bytes.length; i++) {
+        out += bytes[i].toString(16).padStart(2, "0");
+    }
+    return out;
+};
+
+const nativeWriteFields = (content: NativeWriteContent): { text?: string; hex?: string } =>
+    content instanceof Uint8Array
+        ? { hex: bytesToCompactHex(content) }
+        : { text: String(content ?? "") };
+
+const bytesFromCompactHex = (raw: string): Uint8Array | null => {
+    const hex = String(raw || "").replace(/[^0-9a-fA-F]/g, "");
+    if (!hex) return null;
+    const padded = hex.length % 2 === 1 ? `${hex}0` : hex;
+    const out = new Uint8Array(padded.length / 2);
+    for (let i = 0; i < out.length; i++) {
+        out[i] = Number.parseInt(padded.slice(i * 2, i * 2 + 2), 16);
+    }
+    return out;
+};
+
 export type StorageEntry = {
     name: string;
     kind: "file" | "directory";
@@ -214,6 +241,9 @@ const fileFromReadEcho = async (
 ): Promise<File | null> => {
     const name = String(echo.name || fallbackName || "file");
     const mime = String(echo.mime || echo.mimeType || "application/octet-stream");
+    const hex = String(echo.hex || "");
+    const fromHex = hex ? bytesFromCompactHex(hex) : null;
+    if (fromHex) return new File([fromHex], name, { type: mime || "application/octet-stream" });
     const text = echo.text != null || echo.content != null
         ? String(echo.text || echo.content || "")
         : "";
@@ -228,6 +258,8 @@ export type CapacitorLoadedDocument = {
     content: string;
     name: string;
     mime: string;
+    hex?: string;
+    binary?: boolean;
     uri?: string;
     virtualPath?: string;
     stashedAt?: number;
@@ -235,25 +267,45 @@ export type CapacitorLoadedDocument = {
 
 /**
  * Canonical Capacitor document read (`document:load`).
- * INVARIANT: UTF-8 `content` only — no data: URLs, no WebView fetch of content://.
+ * INVARIANT: UTF-8 `content` or compact `hex` — no data: URLs.
  */
 const documentFromLoadEcho = (echo: Record<string, unknown>): CapacitorLoadedDocument | null => {
     const nested = echo.echo && typeof echo.echo === "object"
         ? (echo.echo as Record<string, unknown>)
         : null;
     const content = String(echo.content ?? echo.text ?? nested?.content ?? nested?.text ?? "");
-    if (!content) return null;
+    const hex = String(echo.hex ?? nested?.hex ?? "").trim();
+    if (!content && !hex) return null;
     const virtualPath =
         String(echo.virtualPath || echo.path || nested?.virtualPath || nested?.path || "").trim()
         || toNativeStorageVirtualPath(String(echo.uri || echo.url || nested?.uri || nested?.url || ""));
+    const binary =
+        echo.binary === true
+        || nested?.binary === true
+        || echo.error === "binary"
+        || nested?.error === "binary"
+        || Boolean(hex && !content);
     return {
         content,
+        hex: hex || undefined,
+        binary,
         name: String(echo.name || echo.title || nested?.name || nested?.title || "document.txt"),
-        mime: String(echo.mime || nested?.mime || "text/plain"),
+        mime: String(echo.mime || nested?.mime || (hex ? "application/octet-stream" : "text/plain")),
         uri: String(echo.uri || echo.url || nested?.uri || nested?.url || "").trim() || undefined,
         virtualPath: virtualPath || undefined,
         stashedAt: Number(echo.stashedAt || nested?.stashedAt || 0) || undefined
     };
+};
+
+export const fileFromCapacitorDocument = (doc: CapacitorLoadedDocument): File | null => {
+    const name = String(doc.name || "file");
+    const mime = String(doc.mime || "application/octet-stream");
+    if (doc.hex) {
+        const bytes = bytesFromCompactHex(doc.hex);
+        if (bytes) return new File([bytes], name, { type: mime });
+    }
+    if (doc.content) return new File([doc.content], name, { type: mime || "text/plain" });
+    return null;
 };
 
 export const loadCapacitorDocument = async (input: {
@@ -341,10 +393,10 @@ export const writeNativeClipboardImage = async (
 const writeEchoOk = (echo: Record<string, unknown>): boolean =>
     echo.written === true || echo.ok === true;
 
-/** Write UTF-8 text to `/sdcard/` or `/saf/` (creates parents + file). */
+/** Write UTF-8 text or raw bytes to `/sdcard/` or `/saf/` (creates parents + file). */
 export const writeNativeStorageFile = async (
     virtualPath: string,
-    content: string,
+    content: NativeWriteContent,
     opts?: { mimeType?: string; requestAccess?: boolean }
 ): Promise<boolean> => {
     const parsed = parseNativeStoragePath(virtualPath);
@@ -352,8 +404,8 @@ export const writeNativeStorageFile = async (
     const payload = {
         root: parsed.root,
         path: parsed.rel,
-        text: String(content ?? ""),
-        mimeType: String(opts?.mimeType || "text/markdown")
+        mimeType: String(opts?.mimeType || (content instanceof Uint8Array ? "application/octet-stream" : "text/markdown")),
+        ...nativeWriteFields(content)
     };
     const echo = await capacitorInvoke("storage:write", payload);
     if (writeEchoOk(echo)) return true;
@@ -370,12 +422,12 @@ export const writeNativeStorageFile = async (
 };
 
 /** Overwrite a remembered `content://` / `file://` from ACTION_CREATE_DOCUMENT. */
-export const writeNativeStorageUri = async (uri: string, content: string): Promise<boolean> => {
+export const writeNativeStorageUri = async (uri: string, content: NativeWriteContent): Promise<boolean> => {
     const target = String(uri || "").trim();
     if (!target) return false;
     const echo = await capacitorInvoke("storage:write-uri", {
         uri: target,
-        text: String(content ?? "")
+        ...nativeWriteFields(content)
     });
     return writeEchoOk(echo);
 };
@@ -425,20 +477,21 @@ const mimeFromSavePickerOptions = (options?: {
 
 const invokeCreateDocument = async (
     filename: string,
-    content: string,
+    content: NativeWriteContent,
     mimeType: string
 ): Promise<NativeCreateDocumentResult> => {
     const plugin = nativeBridgePlugin();
     if (typeof plugin?.invoke !== "function") return { ok: false };
     const r = (await Promise.resolve(plugin.invoke({
         channel: "storage:create-document",
-        payload: { name: filename, text: String(content ?? ""), mimeType }
+        payload: { name: filename, mimeType, ...nativeWriteFields(content) }
     })) as { ok?: boolean; error?: string; echo?: { uri?: string; written?: boolean; error?: string; ok?: boolean } } | null);
     const echo = (r?.echo || {}) as Record<string, unknown>;
     const err = String(echo.error || r?.error || "");
     if (/cancel/i.test(err)) return { ok: false, cancelled: true };
     const uri = String(echo.uri || echo.url || "").trim();
-    if (uri && content && echo.written !== true) {
+    const hasBody = content instanceof Uint8Array ? content.length > 0 : Boolean(content);
+    if (uri && hasBody && echo.written !== true) {
         if (await writeNativeStorageUri(uri, content)) return { ok: true, uri };
     }
     const ok = r?.ok !== false && (echo.written === true || echo.ok === true || Boolean(uri));
@@ -465,9 +518,9 @@ const nativeFileHandle = (uri: string, name: string): NativeSaveHandle => {
             },
             close: async () => {
                 const blob = new Blob(chunks);
-                const text = await blob.text();
                 chunks.length = 0;
-                if (!(await writeNativeStorageUri(uri, text))) {
+                const bytes = new Uint8Array(await blob.arrayBuffer());
+                if (!(await writeNativeStorageUri(uri, bytes))) {
                     throw new DOMException("Write failed.", "InvalidStateError");
                 }
             },
@@ -485,7 +538,7 @@ const nativeFileHandle = (uri: string, name: string): NativeSaveHandle => {
  */
 export const createNativeStorageDocument = async (
     filename: string,
-    content: string,
+    content: NativeWriteContent,
     mimeType = "text/markdown"
 ): Promise<NativeCreateDocumentResult> => {
     if (!isNativeStorageAvailable()) return { ok: false };

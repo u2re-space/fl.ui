@@ -31,6 +31,7 @@ export const RAW_EDITOR_SHADOW_CSS = `
 }
 :host([hidden]) {
     display: none !important;
+    content-visibility: auto;
 }
 .cw-raw-editor__scroll {
     inset: 0;
@@ -122,6 +123,12 @@ export const RAW_EDITOR_SHADOW_CSS = `
     pointer-events: auto;
     position: relative;
     inset: 0;
+}
+.cw-raw-editor__chunk {
+    display: block;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 12rem;
+    white-space: inherit;
 }
 .cw-raw-editor__source.code-highlight-painted:not(.code-highlight-source-only) {
     color: transparent !important;
@@ -307,6 +314,7 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
 }
 :host([hidden]) {
     display: none !important;
+    content-visibility: auto;
 }
 .cw-raw-editor__scroll {
     box-sizing: border-box;
@@ -391,6 +399,12 @@ export const RAW_EDITOR_CAPACITOR_CSS = `
     padding-left: var(--code-gutter, 0px);
     z-index: 2;
     pointer-events: auto;
+}
+.cw-raw-editor__chunk {
+    display: block;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 12rem;
+    white-space: inherit;
 }
 .cw-raw-editor__source.code-highlight-source-only,
 .cw-raw-editor__source.code-highlight-inplace {
