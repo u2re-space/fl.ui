@@ -225,6 +225,56 @@ const capacitorShare = async (opts: { title?: string; text?: string; url?: strin
     }
 };
 
+/** Sibling Capacitor packages. Web falls through to the system share sheet (share_target). */
+export const EXPLORER_SHARE_PACKAGES = {
+    document: "space.u2re.document",
+    transfer: "space.u2re.cwsp",
+    process: "space.u2re.process"
+} as const;
+
+export type ExplorerShareTarget = keyof typeof EXPLORER_SHARE_PACKAGES;
+
+/**
+ * Send a file or directory to Document, Transfer, or Process.
+ * WHY: Capacitor can target the package directly. A directory shares its files
+ * (one level). Web uses the share sheet, which lists installed share targets.
+ */
+export const shareExplorerToTarget = async (
+    item: FileEntryItem | null | undefined,
+    currentPath = "/",
+    target: ExplorerShareTarget = "transfer"
+): Promise<ShareCopyResult> => {
+    const path = explorerItemPath(item, currentPath);
+    const name = String(item?.name || path.split("/").filter(Boolean).pop() || "file");
+    const packageName = EXPLORER_SHARE_PACKAGES[target];
+    const label = target === "document" ? "Document" : target === "process" ? "Process" : "Transfer";
+
+    if (isNativeVirtual(path) && isNativeStorageAvailable()) {
+        const ok = await shareNativeStorageFile(path, {
+            mimeType: item?.kind === "directory" ? "" : (item?.type || getMimeTypeByFilename(name)),
+            title: name,
+            packageName
+        });
+        if (ok) return { ok: true, message: `Shared ${name} to ${label}` };
+    }
+
+    if (item?.kind === "directory") {
+        const text = path;
+        if (await webShare({ title: name, text })) return { ok: true, message: `Shared ${name}` };
+        if (await capacitorShare({ title: name, text })) return { ok: true, message: `Shared ${name}` };
+        return { ok: false, message: "Share is unavailable for this folder" };
+    }
+
+    const file = await loadExplorerFile(item, path);
+    if (file && (await webShare({ title: name, text: name, files: [file] }))) {
+        return { ok: true, message: `Shared ${name}` };
+    }
+    const uri = isNativeVirtual(path) ? await resolveNativeStorageUri(path).catch(() => "") : "";
+    if (uri && (await capacitorShare({ title: name, url: uri }))) return { ok: true, message: `Shared ${name}` };
+    if (await webShare({ title: name, text: path })) return { ok: true, message: `Shared ${name}` };
+    return { ok: false, message: `Could not share to ${label}` };
+};
+
 export const shareExplorerItem = async (
     item: FileEntryItem | null | undefined,
     currentPath = "/"

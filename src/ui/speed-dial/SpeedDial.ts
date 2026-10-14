@@ -132,7 +132,7 @@ import {
     inferIconDisplay,
     normalizeIconDisplay,
     normalizeTileShape,
-    syncPlateGlyphInk,
+    schedulePlateGlyphInk,
     syncShapelessIconShadow,
     type IconDisplayMode
 } from "./tile-icon";
@@ -953,7 +953,7 @@ const paintSpeedDialTileIcon = (el: HTMLElement, item: SpeedDialItem): void => {
     const finishPaint = (): void => {
         applyIconScaleToPaintedNodes(el);
         syncShapelessIconShadow(el);
-        requestAnimationFrame(() => syncPlateGlyphInk(el));
+        schedulePlateGlyphInk(el);
     };
 
     const pendingShortcut =

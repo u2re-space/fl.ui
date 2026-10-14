@@ -46,25 +46,62 @@ export function isShapelessTileShape(raw: unknown): boolean {
  * WHY: glyphs sit on the figure, not the photo. Wallpaper contrast is white on dark
  * wood — invisible on a light-gray plate. `contrast-color()` dies on Capacitor WebView.
  */
-export function syncPlateGlyphInk(host: HTMLElement | null | undefined): void {
-    if (!host || host.classList.contains("sd-widget-host") || host.dataset.widget) return;
-    const shape = String(host.getAttribute("data-shape") || "");
-    if (shape === "shapeless" || shape === "none") {
-        host.style.removeProperty("--sd-figure-ink");
-        return;
-    }
-    const raw = getComputedStyle(host).backgroundColor || "";
+const plateInkFromBackground = (raw: string): string | null => {
     const m = raw.match(/rgba?\(\s*([\d.]+)[,\s/]+([\d.]+)[,\s/]+([\d.]+)/i);
-    if (!m) return;
+    if (!m) return null;
     const r = Number(m[1]);
     const g = Number(m[2]);
     const b = Number(m[3]);
-    if (![r, g, b].every((n) => Number.isFinite(n))) return;
+    if (![r, g, b].every((n) => Number.isFinite(n))) return null;
     const rn = r > 1 ? r / 255 : r;
     const gn = g > 1 ? g / 255 : g;
     const bn = b > 1 ? b / 255 : b;
     const luma = 0.2126 * rn + 0.7152 * gn + 0.0722 * bn;
-    host.style.setProperty("--sd-figure-ink", luma > 0.52 ? "#141416" : "#f7f7f8");
+    return luma > 0.52 ? "#141416" : "#f7f7f8";
+};
+
+const plateNeedsGlyphInk = (host: HTMLElement): boolean => {
+    if (host.classList.contains("sd-widget-host") || host.dataset.widget) return false;
+    const shape = String(host.getAttribute("data-shape") || "");
+    return shape !== "shapeless" && shape !== "none";
+};
+
+export function syncPlateGlyphInk(host: HTMLElement | null | undefined): void {
+    if (!host || host.classList.contains("sd-widget-host") || host.dataset.widget) return;
+    if (!plateNeedsGlyphInk(host)) {
+        host.style.removeProperty("--sd-figure-ink");
+        return;
+    }
+    const ink = plateInkFromBackground(getComputedStyle(host).backgroundColor || "");
+    if (!ink) return;
+    host.style.setProperty("--sd-figure-ink", ink);
+}
+
+const plateInkPending = new Set<HTMLElement>();
+let plateInkFrame = 0;
+
+/** PERF: one frame, all reads then all writes — per-tile getComputedStyle was a layout storm. */
+export function schedulePlateGlyphInk(host: HTMLElement | null | undefined): void {
+    if (!host) return;
+    plateInkPending.add(host);
+    if (plateInkFrame) return;
+    plateInkFrame = requestAnimationFrame(() => {
+        plateInkFrame = 0;
+        const nodes = [...plateInkPending];
+        plateInkPending.clear();
+        const samples = nodes.map((node) => {
+            if (!node.isConnected || node.classList.contains("sd-widget-host") || node.dataset.widget) {
+                return { node, mode: "skip" as const, ink: "" };
+            }
+            if (!plateNeedsGlyphInk(node)) return { node, mode: "clear" as const, ink: "" };
+            const ink = plateInkFromBackground(getComputedStyle(node).backgroundColor || "") || "";
+            return { node, mode: ink ? ("set" as const) : ("skip" as const), ink };
+        });
+        for (const { node, mode, ink } of samples) {
+            if (mode === "clear") node.style.removeProperty("--sd-figure-ink");
+            else if (mode === "set") node.style.setProperty("--sd-figure-ink", ink);
+        }
+    });
 }
 
 /**

@@ -4,6 +4,7 @@
  * Change date and time: 08.48.00_24.08.2026
  * Reason for changes: Hydrate paints launcher bitmaps onto ui-icon — no light-DOM img.
  * FIND:pin-shortcut
+ * TAG:icon-hydrate
  */
 
 import { navigate } from "@fest-lib/lure";
@@ -57,6 +58,19 @@ export type LauncherBridgeSpeedDialApi = {
         pack?: string,
         drawable?: string
     ) => Promise<string>;
+    /** One IPC for a grid of app/shortcut icons. Missing on older hosts — callers fall back. */
+    launcherIcons?: (
+        items: Array<{
+            key: string;
+            kind: "app" | "shortcut";
+            packageName: string;
+            shortcutId?: string;
+            size?: number;
+            variant?: string;
+            pack?: string;
+            drawable?: string;
+        }>
+    ) => Promise<Array<{ key: string; dataUrl: string }>>;
     launcherIconVariants?: (
         cacheKey: string
     ) => Promise<Array<{ id: string; label: string; available: boolean }>>;
@@ -106,16 +120,180 @@ let registeredLauncherBridge: LauncherBridgeSpeedDialApi | null = null;
 
 /** In-memory cache: Android package → blob: object URL (web-native image). */
 const launcherIconObjectUrlCache = new Map<string, string>();
-const launcherIconInflight = new Map<string, Promise<string>>();
+const shortcutIconObjectUrlCache = new Map<string, string>();
 
-async function dataUrlToObjectUrl(dataUrl: string): Promise<string> {
-    const res = await fetch(dataUrl);
-    const blob = await res.blob();
-    const type = blob.type && blob.type.startsWith("image/") ? blob.type : "image/png";
-    const normalized =
-        blob.type === type ? blob : new Blob([await blob.arrayBuffer()], { type });
-    return URL.createObjectURL(normalized);
+/** PERF: fetch(data:) round-trips the whole PNG through the network stack. */
+function dataUrlToObjectUrl(dataUrl: string): string {
+    const url = String(dataUrl || "").trim();
+    if (!url.startsWith("data:")) return url;
+    const comma = url.indexOf(",");
+    if (comma < 0) return url;
+    const header = url.slice(5, comma);
+    const mime = (header.split(";")[0] || "image/png").trim() || "image/png";
+    const isBase64 = /;base64/i.test(header);
+    try {
+        const payload = url.slice(comma + 1);
+        const binary = isBase64 ? atob(payload) : decodeURIComponent(payload);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        return URL.createObjectURL(new Blob([bytes], { type: mime }));
+    } catch {
+        return url;
+    }
 }
+
+type IconBatchSpec = {
+    resultKey: string;
+    kind: "app" | "shortcut";
+    packageName: string;
+    shortcutId: string;
+    size: number;
+    variant: string;
+    pack: string;
+    drawable: string;
+};
+
+type IconBatchJob = {
+    spec: IconBatchSpec;
+    resolve: (url: string) => void;
+};
+
+const iconBatchQueue = new Map<string, IconBatchJob>();
+let iconBatchScheduled = false;
+let iconBatchFlushing = false;
+let iconBatchUnsupported = false;
+const ICON_BATCH_LIMIT = 16;
+
+const deliverIconBatch = (spec: IconBatchSpec, dataUrl: string): string => {
+    const url = String(dataUrl || "").trim();
+    if (!url) return "";
+    const objectUrl = dataUrlToObjectUrl(url);
+    if (spec.kind === "shortcut") shortcutIconObjectUrlCache.set(spec.resultKey, objectUrl);
+    else launcherIconObjectUrlCache.set(spec.resultKey, objectUrl);
+    return objectUrl;
+};
+
+const fetchOneLauncherIcon = async (
+    bridge: LauncherBridgeSpeedDialApi,
+    spec: IconBatchSpec
+): Promise<string> => {
+    try {
+        if (spec.kind === "shortcut") {
+            if (!bridge.launcherShortcutIcon) return "";
+            return String(
+                (await bridge.launcherShortcutIcon(spec.packageName, spec.shortcutId, spec.size)) || ""
+            ).trim();
+        }
+        if (!bridge.launcherIcon) return "";
+        return String(
+            (await bridge.launcherIcon(
+                spec.packageName,
+                spec.size,
+                spec.variant,
+                spec.pack || undefined,
+                spec.drawable || undefined
+            )) || ""
+        ).trim();
+    } catch {
+        return "";
+    }
+};
+
+const resolveIconBatchJobs = async (
+    bridge: LauncherBridgeSpeedDialApi | null,
+    jobs: IconBatchJob[]
+): Promise<void> => {
+    const pending = new Map(jobs.map((job) => [job.spec.resultKey, job]));
+    const finish = (job: IconBatchJob, dataUrl: string): void => {
+        pending.delete(job.spec.resultKey);
+        job.resolve(deliverIconBatch(job.spec, dataUrl));
+    };
+
+    if (
+        bridge?.launcherIcons &&
+        !iconBatchUnsupported &&
+        jobs.length > 1
+    ) {
+        try {
+            const rows = await bridge.launcherIcons(
+                jobs.map((job) => ({
+                    key: job.spec.resultKey,
+                    kind: job.spec.kind,
+                    packageName: job.spec.packageName,
+                    shortcutId: job.spec.shortcutId || undefined,
+                    size: job.spec.size,
+                    variant: job.spec.variant,
+                    pack: job.spec.pack || undefined,
+                    drawable: job.spec.drawable || undefined
+                }))
+            );
+            if (!rows?.length) iconBatchUnsupported = true;
+            else {
+                for (const row of rows) {
+                    const job = pending.get(String(row?.key || ""));
+                    if (!job) continue;
+                    const dataUrl = String(row?.dataUrl || "").trim();
+                    if (!dataUrl) continue;
+                    finish(job, dataUrl);
+                }
+            }
+        } catch {
+            iconBatchUnsupported = true;
+        }
+    }
+
+    const missed = [...pending.values()];
+    let cursor = 0;
+    const workers = Array.from({ length: Math.min(4, missed.length) }, async () => {
+        while (cursor < missed.length) {
+            const job = missed[cursor++];
+            if (!job || !bridge) {
+                job?.resolve("");
+                continue;
+            }
+            finish(job, await fetchOneLauncherIcon(bridge, job.spec));
+        }
+    });
+    await Promise.all(workers);
+};
+
+const flushIconBatch = async (): Promise<void> => {
+    if (iconBatchFlushing) return;
+    iconBatchFlushing = true;
+    try {
+        const bridge = await resolveLauncherBridgeForSpeedDial();
+        while (iconBatchQueue.size > 0) {
+            const jobs = [...iconBatchQueue.values()].slice(0, ICON_BATCH_LIMIT);
+            for (const job of jobs) iconBatchQueue.delete(job.spec.resultKey);
+            await resolveIconBatchJobs(bridge, jobs);
+        }
+    } finally {
+        iconBatchFlushing = false;
+        if (iconBatchQueue.size > 0) void flushIconBatch();
+    }
+};
+
+const enqueueLauncherIcon = (spec: IconBatchSpec): Promise<string> => {
+    const queued = iconBatchQueue.get(spec.resultKey);
+    if (queued) {
+        return new Promise((resolve) => {
+            const prev = queued.resolve;
+            queued.resolve = (url) => {
+                prev(url);
+                resolve(url);
+            };
+        });
+    }
+    return new Promise((resolve) => {
+        iconBatchQueue.set(spec.resultKey, { spec, resolve });
+        if (iconBatchScheduled) return;
+        iconBatchScheduled = true;
+        queueMicrotask(() => {
+            iconBatchScheduled = false;
+            void flushIconBatch();
+        });
+    });
+};
 
 /** Cached blob URL for an Android launcher icon, if already fetched this session. */
 /**
@@ -202,9 +380,6 @@ export function isLauncherAppSpeedDialItem(item: { id: string; action?: string }
     return getLauncherAppTileCacheKey(item).length > 0;
 }
 
-const shortcutIconObjectUrlCache = new Map<string, string>();
-const shortcutIconInflight = new Map<string, Promise<string>>();
-
 /** Fetch pinned-shortcut icon (document thumbnail / type icon), not the app icon. */
 export async function ensureShortcutIconObjectUrl(
     pkg: string,
@@ -219,31 +394,16 @@ export async function ensureShortcutIconObjectUrl(
     const cached = shortcutIconObjectUrlCache.get(key);
     if (cached) return cached;
 
-    let inflight = shortcutIconInflight.get(key);
-    if (!inflight) {
-        inflight = (async () => {
-            const bridge = await resolveLauncherBridgeForSpeedDial();
-            if (!bridge?.launcherShortcutIcon) return "";
-            let dataUrl = "";
-            try {
-                dataUrl = String(await bridge.launcherShortcutIcon(packageName, id, sz) || "").trim();
-            } catch {
-                return "";
-            }
-            if (!dataUrl) return "";
-            try {
-                const objectUrl = await dataUrlToObjectUrl(dataUrl);
-                shortcutIconObjectUrlCache.set(key, objectUrl);
-                return objectUrl;
-            } catch {
-                return dataUrl;
-            }
-        })().finally(() => {
-            shortcutIconInflight.delete(key);
-        });
-        shortcutIconInflight.set(key, inflight);
-    }
-    return inflight;
+    return enqueueLauncherIcon({
+        resultKey: key,
+        kind: "shortcut",
+        packageName,
+        shortcutId: id,
+        size: sz,
+        variant: "default",
+        pack: "",
+        drawable: ""
+    });
 }
 
 export function getCachedShortcutIconObjectUrl(
@@ -280,39 +440,16 @@ export async function ensureLauncherIconObjectUrl(
     const cached = launcherIconObjectUrlCache.get(key);
     if (cached) return cached;
 
-    let inflight = launcherIconInflight.get(key);
-    if (!inflight) {
-        inflight = (async () => {
-            const bridge = await resolveLauncherBridgeForSpeedDial();
-            if (!bridge?.launcherIcon) return "";
-            let dataUrl = "";
-            try {
-                dataUrl = await bridge.launcherIcon(
-                    pkg,
-                    sz,
-                    v,
-                    packPkg || undefined,
-                    draw || undefined
-                );
-            } catch {
-                return "";
-            }
-            if (!dataUrl) return "";
-            try {
-                const objectUrl = await dataUrlToObjectUrl(dataUrl);
-                launcherIconObjectUrlCache.set(key, objectUrl);
-                return objectUrl;
-            } catch {
-                return "";
-            }
-        })();
-        launcherIconInflight.set(key, inflight);
-    }
-    try {
-        return await inflight;
-    } finally {
-        launcherIconInflight.delete(key);
-    }
+    return enqueueLauncherIcon({
+        resultKey: key,
+        kind: "app",
+        packageName: pkg,
+        shortcutId: "",
+        size: sz,
+        variant: v,
+        pack: packPkg,
+        drawable: draw
+    });
 }
 
 /** Resolve durable `android-icon:` ref (or return plain URL as-is). */
@@ -1159,6 +1296,18 @@ const installBuiltins = (): void => {
             }
             /* Prefer plain content/file/http over intent: that embeds publisher package. */
             const openHref = preferDataUriOverIntent(href, meta);
+            /* WHY: a shared workspace link should open in Chrome when it is installed. */
+            if (externalHref && canUseNativeOpenUri()) {
+                const bridge = await resolveLauncherBridgeForSpeedDial();
+                if (bridge?.launcherOpenUri) {
+                    const inChrome = await bridge.launcherOpenUri(openHref, {
+                        packageName: "com.android.chrome",
+                        chooser: false,
+                        title: "Chrome"
+                    }).catch(() => false);
+                    if (inChrome) return;
+                }
+            }
             if (canUseNativeOpenUri() && (await openViaNativeUri(openHref, { chooser: true }))) return;
             if (!openInNewBrowserTab(href)) {
                 showError("Unable to open in app");

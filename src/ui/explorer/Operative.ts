@@ -26,7 +26,8 @@ import {
     copyExplorerImage,
     copyExplorerInlineText,
     copyExplorerRealPath,
-    shareExplorerItem
+    shareExplorerItem,
+    shareExplorerToTarget
 } from "./share-copy";
 import { openBookmarkFieldsDialog } from "fl-ui/navigation/app-menu/app-actions";
 
@@ -1218,10 +1219,20 @@ export class FileOperative {
                     }));
                     break;
                 case "send-transfer":
+                case "share-document":
+                case "share-transfer":
+                case "share-process": {
+                    const current = this.path || "/";
+                    const target =
+                        actionId === "share-document" ? "document"
+                        : actionId === "share-process" ? "process"
+                        : "transfer";
+                    const result = await shareExplorerToTarget(item, current, target);
                     this.dispatchEvent(new CustomEvent("context-action", {
-                        detail: { action: "send-transfer", item }
+                        detail: { action: actionId, item, handled: true, message: result.message }
                     }));
                     break;
+                }
                 case "share":
                 case "copy-base64":
                 case "copy-text":

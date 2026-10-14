@@ -705,6 +705,9 @@ const makeFileActionOps = () => {
               ]
             : []),
         { id: "share", label: "Share…", icon: "share-network" },
+        { id: "share-document", label: "Share to Document", icon: "file-text" },
+        { id: "share-transfer", label: "Share to Transfer", icon: "paper-plane-tilt" },
+        { id: "share-process", label: "Share to Process", icon: "lightning" },
         { id: "send-transfer", label: "Send to CWSP Transfer", icon: "paper-plane-tilt" },
         { id: "attach-workcenter", label: "Attach to Work Center", icon: "lightning" },
         { id: "attach-workcenter-queued", label: "Queue attach (pending)", icon: "clock-counter-clockwise" },
@@ -730,7 +733,10 @@ const makeFileSystemOps = () => {
 };
 
 const makeDirectoryOps = () => {
-    const allowed = new Set(["open", "download", "delete", "rename", "copyPath", "movePath", "share", "copy-real-path"]);
+    const allowed = new Set([
+        "open", "download", "delete", "rename", "copyPath", "movePath", "share",
+        "share-document", "share-transfer", "share-process", "copy-real-path"
+    ]);
     return [...makeFileActionOps(), ...makeFileSystemOps()].filter((item) => allowed.has(item.id));
 };
 

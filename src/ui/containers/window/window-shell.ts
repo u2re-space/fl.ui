@@ -75,7 +75,21 @@ export function createChromeModel(
         demoRole: DemoWindowRole;
     }> = {}
 ): WindowChromeModel {
-    const { x = 48, y = 48, w = 640, h = 480, z = 10, demoRole } = seed;
+    let { x = 48, y = 48, w = 640, h = 480, z = 10, demoRole } = seed;
+    /* WHY: default 640×480 at (48,48) puts titlebar actions past a squeezed pane. */
+    try {
+        const boxW = Math.round(window.visualViewport?.width || window.innerWidth || 0);
+        const boxH = Math.round(window.visualViewport?.height || window.innerHeight || 0);
+        if (boxW >= 280 && boxH >= 200) {
+            const pad = 16;
+            if (w > boxW - pad) w = Math.max(280, boxW - pad);
+            if (h > boxH - pad) h = Math.max(200, boxH - pad);
+            if (x + w > boxW - 8) x = Math.max(8, boxW - w - 8);
+            if (y + h > boxH - 8) y = Math.max(8, boxH - h - 8);
+        }
+    } catch {
+        /* non-browser */
+    }
     const mq = matchMedia("(max-width: 640px)");
     return {
         demoRole,

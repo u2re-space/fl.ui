@@ -651,17 +651,19 @@ export const removeNativeStorage = async (virtualPath: string): Promise<void> =>
 /** ACTION_SEND chooser — Android share sheet, no JS byte hop. */
 export const shareNativeStorageFile = async (
     virtualPath: string,
-    opts: { mimeType?: string; title?: string } = {}
+    opts: { mimeType?: string; title?: string; packageName?: string } = {}
 ): Promise<boolean> => {
     const parsed = parseNativeStoragePath(virtualPath);
     if (!parsed) return false;
     const mimeType = String(opts.mimeType || "").trim();
     const title = String(opts.title || "Share").trim();
+    const packageName = String(opts.packageName || "").trim();
     const echo = await capacitorInvoke("storage:share", {
         root: parsed.root,
         path: parsed.rel,
         ...(mimeType ? { mimeType } : {}),
-        ...(title ? { title } : {})
+        ...(title ? { title } : {}),
+        ...(packageName ? { packageName } : {})
     });
     return echo.opened === true || echo.sent === true || echo.ok === true;
 };
