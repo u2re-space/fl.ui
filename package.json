@@ -1,7 +1,7 @@
 {
     "name": "@fest-lib/fl-ui",
     "description": "fest-lib FL.UI: windows, taskbar, app menu, Speed Dial (shapeless tiles). Dev: npm run dev",
-    "version": "1.0.32",
+    "version": "1.0.33",
     "license": "MIT",
     "type": "module",
     "sideEffects": true,
@@ -96,6 +96,7 @@
     "devDependencies": {
         "@types/node": ">=26.4.1",
         "@vitejs/plugin-basic-ssl": "^2.3.0",
+        "css-typed-om": "^1.0.0",
         "markdown-it": "^15.0.1",
         "puppeteer": ">=25.10.0",
         "sass": ">=1.104.0",
