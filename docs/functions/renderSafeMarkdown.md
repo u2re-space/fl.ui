@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.35**](../README.md)
+[**@fest-lib/fl-ui v1.0.37**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function renderSafeMarkdown(markdown): string;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/markdown/render.ts:152
+Defined in: modules/projects/fl.ui/src/ui/markdown/render.ts:154
 
 Parse Markdown synchronously and sanitize all generated or embedded HTML.
 

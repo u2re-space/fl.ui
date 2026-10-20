@@ -1270,6 +1270,9 @@ export function mountEnvironmentAppMenu(): MountAppMenuResult {
     panel.className = "env-shell-app-menu__panel";
     if (mode === "bookmarks") panel.setAttribute("data-layout", "start-split");
 
+    const frame = document.createElement("div");
+    frame.className = "env-shell-app-menu__frame";
+
     const banner = document.createElement("div");
     banner.className = "env-shell-app-menu__banner";
     banner.hidden = true;
@@ -1375,7 +1378,8 @@ export function mountEnvironmentAppMenu(): MountAppMenuResult {
     } else {
         panel.append(banner, tools, gridHost);
     }
-    root.appendChild(panel);
+    frame.append(panel);
+    root.appendChild(frame);
 
     const host = resolveAppMenuHost();
     host.appendChild(root);

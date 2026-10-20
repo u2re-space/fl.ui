@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.35**](../README.md)
+[**@fest-lib/fl-ui v1.0.37**](../README.md)
 
 ***
 
@@ -18,6 +18,12 @@ Defined in: modules/projects/fl.ui/src/ui/markdown/render.ts:29
 
 ```ts
 ADD_ATTR: string[];
+```
+
+### ADD\_TAGS
+
+```ts
+ADD_TAGS: string[];
 ```
 
 ### FORBID\_CONTENTS
