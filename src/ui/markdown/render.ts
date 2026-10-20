@@ -28,7 +28,9 @@ const INLINE_CODE_PATTERN = /`[^`\n]+`/g;
 
 export const MARKDOWN_SANITIZE_OPTIONS = {
     USE_PROFILES: { html: true, mathMl: true, svg: true },
-    ADD_ATTR: [CODE_LANGUAGE_ATTR, "data-lang"],
+    // WHY: the mathMl profile drops <annotation>, so KaTeX's TeX source never reaches docx.
+    ADD_TAGS: ["annotation", "semantics"],
+    ADD_ATTR: [CODE_LANGUAGE_ATTR, "data-lang", "encoding"],
     FORBID_TAGS: ["script", "style", "iframe", "object", "embed", "applet", "link", "meta", "base", "form", "noscript", "template"],
     FORBID_CONTENTS: ["script", "style", "iframe", "object", "embed", "applet", "noscript", "template"]
 };
