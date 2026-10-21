@@ -49,7 +49,7 @@ export function createAnchoredWindowShell(opts: AnchoredWindowOptions = {}): Anc
         "min-inline-size:280px;min-block-size:180px;box-sizing:border-box;display:grid;" +
         "grid-template-rows:auto minmax(0,1fr);" +
         "border-radius:12px;overflow:hidden;" +
-        "background:color-mix(in oklab, var(--color-surface, #0f172a) 100%, #000);" +
+        "background:color-mix(in oklab, var(--color-surface-container-low, #0f172a) 100%, #000);" +
         "border:1px solid color-mix(in oklab, var(--color-outline-variant, #334155) 45%, transparent);" +
         "box-shadow:0 24px 48px -24px color-mix(in oklab, #000 55%, transparent);color:var(--color-on-surface, #e2e8f0);";
 
@@ -57,7 +57,7 @@ export function createAnchoredWindowShell(opts: AnchoredWindowOptions = {}): Anc
     titlebar.setAttribute("heading", opts.title ?? "Window");
     titlebar.style.cssText =
         "display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.75rem;cursor:grab;user-select:none;" +
-        "background:color-mix(in oklab, var(--color-surface, #1e293b) 100%, transparent);" +
+        "background:color-mix(in oklab, var(--color-surface-container-low, #1e293b) 100%, transparent);" +
         "border-bottom:1px solid color-mix(in oklab, var(--color-outline-variant, #334155) 35%, transparent);";
 
     const split = document.createElement("div");
@@ -69,7 +69,7 @@ export function createAnchoredWindowShell(opts: AnchoredWindowOptions = {}): Anc
     const panePrimary = document.createElement("div");
     panePrimary.className = "ui-anchored-window__pane ui-anchored-window__pane--primary";
     panePrimary.style.cssText =
-        "min-block-size:0;min-inline-size:0;overflow:auto;padding:0.65rem;background:color-mix(in oklab, var(--color-surface, #0f172a) 100%, transparent);";
+        "min-block-size:0;min-inline-size:0;overflow:auto;padding:0.65rem;background:color-mix(in oklab, var(--color-surface-container-low, #0f172a) 100%, transparent);";
 
     const paneSecondary = document.createElement("div");
     paneSecondary.className = "ui-anchored-window__pane ui-anchored-window__pane--secondary";

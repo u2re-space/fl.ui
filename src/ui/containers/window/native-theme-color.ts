@@ -245,11 +245,11 @@ const surfaceTokenHex = (): string | null => {
     if (cachedSurfaceHex) return cachedSurfaceHex;
     try {
         const raw = getComputedStyle(document.documentElement)
-            .getPropertyValue("--color-surface")
+            .getPropertyValue("--color-surface-container-low")
             .trim();
         cachedSurfaceHex =
             resolveCssColorToHex(raw) ||
-            paintVarOnHost(document.documentElement, "var(--color-surface, Canvas)") ||
+            paintVarOnHost(document.documentElement, "var(--color-surface-container-low, Canvas)") ||
             FALLBACK_WARM;
     } catch {
         cachedSurfaceHex = FALLBACK_WARM;
@@ -317,8 +317,8 @@ export const syncAmbientThemeColor = (): void => {
     const cs = getComputedStyle(root);
     const bodyCs = document.body ? getComputedStyle(document.body) : null;
     const hex =
+        resolveCssColorToHex(cs.getPropertyValue("--color-surface-container-low").trim()) ||
         resolveCssColorToHex(cs.getPropertyValue("--color-surface").trim()) ||
-        resolveCssColorToHex(cs.getPropertyValue("--color-surface-container").trim()) ||
         resolveCssColorToHex(cs.getPropertyValue("--ui-win-titlebar-bg").trim()) ||
         (bodyCs ? resolveCssColorToHex(bodyCs.backgroundColor) : null) ||
         resolveCssColorToHex(cs.backgroundColor);
