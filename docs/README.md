@@ -1,8 +1,8 @@
-**@fest-lib/fl-ui v1.0.41**
+**@fest-lib/fl-ui v1.0.42**
 
 ***
 
-# @fest-lib/fl-ui v1.0.41
+# @fest-lib/fl-ui v1.0.42
 
 ## Classes
 
