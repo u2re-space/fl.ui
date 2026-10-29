@@ -169,7 +169,7 @@ export class Windows2 extends UIElement {
 
     disconnectedCallback(): void {
         // WHY: elevateModel `appendChild` reparents — sync teardown + 8-frame rewire froze opens.
-        queueMicrotask(() => {
+        scheduler?.yield?.()?.then?.(() => {
             if (this.isConnected) return;
             this.#nativeUnbind?.();
             this.#nativeUnbind = null;
@@ -204,7 +204,7 @@ export class Windows2 extends UIElement {
             if (this.#controlsReady) return;
             if (this.#wireAttempts++ < 12) requestAnimationFrame(run);
         };
-        queueMicrotask(run);
+        scheduler?.yield?.()?.then?.(run);
     }
 
     /**

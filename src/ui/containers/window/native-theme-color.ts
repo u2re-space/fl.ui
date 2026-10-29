@@ -446,7 +446,7 @@ export const restoreThemeColorAfterNativeWindow = (exitingHost?: HTMLElement | n
 };
 
 if (typeof document !== "undefined") {
-    queueMicrotask(() => {
+    scheduler?.yield?.()?.then?.(() => {
         try {
             syncAmbientThemeColor();
         } catch {

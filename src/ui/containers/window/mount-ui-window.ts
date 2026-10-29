@@ -592,7 +592,7 @@ export function mountUiWindow(
     };
 
     stampShellButtonHandlers();
-    queueMicrotask(stampShellButtonHandlers);
+    scheduler?.yield?.()?.then?.(stampShellButtonHandlers);
     requestAnimationFrame(stampShellButtonHandlers);
     if (typeof MutationObserver !== "undefined") {
         chromeMo = new MutationObserver(() => stampShellButtonHandlers());

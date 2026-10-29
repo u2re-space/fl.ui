@@ -30,7 +30,7 @@ export class ScrollBoxed extends UIElement {
     enableScrollbars() {
         const self = this as any;
         if (this.#content) {
-            queueMicrotask(() => {
+            scheduler?.yield?.()?.then?.(() => {
                 if (self.isConnected) {//@ts-ignore
                     this.#x ??= new ScrollBar({ holder: this.#holder, scrollbar: self.shadowRoot?.querySelector?.(".ui-scrollbar[axis=\"x\"]"), content: this.#content, inputChange: this.#inputChange }, 0); //@ts-ignore
                     this.#y ??= new ScrollBar({ holder: this.#holder, scrollbar: self.shadowRoot?.querySelector?.(".ui-scrollbar[axis=\"y\"]"), content: this.#content, inputChange: this.#inputChange }, 1); //@ts-ignore

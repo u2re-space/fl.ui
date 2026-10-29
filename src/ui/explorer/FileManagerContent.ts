@@ -351,7 +351,7 @@ export class FileManagerContent extends UIElement {
         const fileRows = H`<div class="fm-grid-rows"></div>`;
         this.#rowsContainer = fileRows as HTMLElement;
         createItemCtxMenu?.(fileRows, operative.onMenuAction.bind(operative), self.entries);
-        queueMicrotask(() => {
+        scheduler?.yield?.()?.then?.(() => {
             self.bindDropHandlers();
             const root = self.shadowRoot;
             const grids = Array.from(root?.querySelectorAll?.(".fm-grid") || []) as HTMLElement[];

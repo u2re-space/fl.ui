@@ -809,7 +809,7 @@ export function mountEnvironmentTaskBar(opts: EnvironmentTaskbarOptions): MountT
         paintActive();
     };
 
-    queueMicrotask(syncStartChrome);
+    scheduler?.yield?.()?.then?.(syncStartChrome);
 
     if (appMenu) {
         const onAppMenuSurface = (): void => syncAppMenuChrome();

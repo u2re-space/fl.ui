@@ -69,7 +69,7 @@ export class LongTextInput extends UIElement {
         });
 
         // fix scrolling by horizontal
-        queueMicrotask(() => {
+        scheduler?.yield?.()?.then?.(() => {
             this.initializeInput();
 
             //

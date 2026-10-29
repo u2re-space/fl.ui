@@ -1561,7 +1561,7 @@ try {
             persistSpeedDialItems();
             persistSpeedDialMeta();
         };
-        queueMicrotask(rewrite);
+        scheduler?.yield?.()?.then?.(rewrite);
         setTimeout(rewrite, 0);
         setTimeout(rewrite, 300);
         setTimeout(rewrite, 1200);
@@ -2434,7 +2434,7 @@ if (typeof globalThis !== "undefined" && typeof document !== "undefined") {
     if (typeof requestAnimationFrame === "function") {
         requestAnimationFrame(run);
     } else {
-        queueMicrotask(run);
+        scheduler?.yield?.()?.then?.(run);
     }
 }
 

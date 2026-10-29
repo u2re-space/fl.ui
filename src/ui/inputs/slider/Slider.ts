@@ -70,7 +70,7 @@ export class SliderInput extends UIElement {
         super.onRender();
 
         // Initialize input after render
-        queueMicrotask(() => this.initializeInput());
+        scheduler?.yield?.()?.then?.(() => this.initializeInput());
     }
 
     initializeInput() {
@@ -108,7 +108,7 @@ export class SliderInput extends UIElement {
         }
 
         // Initialize drag functionality after input is ready
-        queueMicrotask(() => {
+        scheduler?.yield?.()?.then?.(() => {
             if (this.input && this.thumb && this.handle) {
                 dragSlider(this.thumb, this.handle, this.input);
             }

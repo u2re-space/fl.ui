@@ -696,7 +696,7 @@ const bindRootOrientation = (root: HTMLElement): void => {
     }
     mountWorkspacePager(root);
     bindIconGridShadowJanitor(root);
-    queueMicrotask(() => bindIconGridShadowJanitor(root));
+    scheduler?.yield?.()?.then?.(() => bindIconGridShadowJanitor(root));
     const observer = new MutationObserver((records) => {
         if (records.some((record) => record.attributeName === "orient")) {
             syncGridLayout(root);
@@ -710,7 +710,7 @@ const bindRootOrientation = (root: HTMLElement): void => {
     screenOrientation?.addEventListener?.("change", onScreenOrientationChange);
     affected(gridLayoutState, () => syncGridLayout(root));
     syncGridLayout(root);
-    queueMicrotask(() => syncGridLayout(root));
+    scheduler?.yield?.()?.then?.(() => syncGridLayout(root));
     if (typeof globalThis.requestAnimationFrame === "function") {
         globalThis.requestAnimationFrame(() => refreshRootCells(root));
     }
@@ -731,7 +731,7 @@ const scheduleRootCellRefresh = (): void => {
         const home = currentHomeRoot();
         if (home) refreshRootCells(home);
     };
-    queueMicrotask(run);
+    scheduler?.yield?.()?.then?.(run);
     if (typeof globalThis.requestAnimationFrame === "function") {
         globalThis.requestAnimationFrame(run);
     }
@@ -1021,7 +1021,7 @@ const bindCell = (el: HTMLElement, args: any): void => {
     };
     sync();
     /* WHY: lure writes `style=` after `ref=` and would drop `--cell-*` (incl. 0,0). */
-    queueMicrotask(sync);
+    scheduler?.yield?.()?.then?.(sync);
     if (typeof globalThis.requestAnimationFrame === "function") {
         globalThis.requestAnimationFrame(sync);
     }
@@ -1195,7 +1195,7 @@ const attachItemNode = (item: SpeedDialItem, el?: HTMLElement | null, interactiv
                 el.closest<HTMLElement>(".speed-dial-root")
                 || el.ownerDocument?.getElementById("home")
             );
-            queueMicrotask(retryDrag);
+            scheduler?.yield?.()?.then?.(retryDrag);
             if (typeof globalThis.requestAnimationFrame === "function") {
                 globalThis.requestAnimationFrame(retryDrag);
             }
@@ -1222,7 +1222,7 @@ const attachItemNode = (item: SpeedDialItem, el?: HTMLElement | null, interactiv
         }
         ensureShapedUnderSibling(el, item);
         if (!shouldHideShapedUnder(el) && !findShapedUnder(el)) {
-            queueMicrotask(() => ensureShapedUnderSibling(el, item));
+            scheduler?.yield?.()?.then?.(() => ensureShapedUnderSibling(el, item));
             if (typeof globalThis.requestAnimationFrame === "function") {
                 globalThis.requestAnimationFrame(() => ensureShapedUnderSibling(el, item));
             }
@@ -1720,7 +1720,7 @@ const handleWallpaperDropOrPaste = (event: DragEvent | ClipboardEvent) => {
         }
         if (!policyEv.defaultPrevented) applyWallpaperFromImageFile(imageFile);
         // Best-effort OPFS mirror (non-blocking); IDB is the source of truth for paint.
-        queueMicrotask(() => {
+        scheduler?.yield?.()?.then?.(() => {
             try {
                 handleIncomingEntries(dataTransfer, "/images/wallpaper/", null, (file) => {
                     if (!looksLikeImageFile(file)) return;
@@ -1991,7 +1991,7 @@ export function SpeedDial(makeView: any) {
     const hostEvents = globalThis as { __CWSP_SD_HOST_EVENTS_V1__?: boolean };
     if (!hostEvents.__CWSP_SD_HOST_EVENTS_V1__) {
         hostEvents.__CWSP_SD_HOST_EVENTS_V1__ = true;
-        queueMicrotask(() => syncWidgetsAfterGridChange());
+        scheduler?.yield?.()?.then?.(() => syncWidgetsAfterGridChange());
         window.addEventListener(WORKSPACE_PAGE_EVENT, () => {
             hideAndroidWidgetHosts();
             scheduleRootCellRefresh();
@@ -1999,7 +1999,7 @@ export function SpeedDial(makeView: any) {
         });
         if (typeof ResizeObserver === "function") {
             const ro = new ResizeObserver(() => syncAndroidWidgetHosts());
-            queueMicrotask(() => {
+            scheduler?.yield?.()?.then?.(() => {
                 const home = document.getElementById("home");
                 if (home) ro.observe(home);
             });

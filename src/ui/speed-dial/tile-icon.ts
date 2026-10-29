@@ -241,7 +241,7 @@ export function createTileUiIconElement(opts: TileIconPaintOptions): HTMLElement
     void customElements.whenDefined("ui-icon").then(() => {
         if (!host.isConnected) {
             // Apply once connected so http(s) resources are not dropped pre-mount.
-            queueMicrotask(() => {
+            scheduler?.yield?.()?.then?.(() => {
                 if (host.isConnected) apply();
             });
             return;

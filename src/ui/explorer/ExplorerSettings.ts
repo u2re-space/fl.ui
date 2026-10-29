@@ -96,7 +96,7 @@ export class ExplorerSettings extends UIElement {
 
     onInitialize(): this {
         const result = super.onInitialize();
-        queueMicrotask(() => {
+        scheduler?.yield?.()?.then?.(() => {
             paintSort(this);
             paintMounts(this);
             if (isNativeStorageAvailable()) {

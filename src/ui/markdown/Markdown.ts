@@ -72,12 +72,16 @@ const waitForClipboardFrame = (): Promise<void> =>
             channel.port2.postMessage(undefined);
             return;
         }
-        if (typeof setTimeout === "function") {
-            setTimeout(() => resolve(), 16);
+        if (typeof scheduler?.yield == "function") {
+            scheduler?.yield?.()?.then?.(resolve);
             return;
         }
         if (typeof queueMicrotask === "function") {
             queueMicrotask(() => resolve());
+            return;
+        }
+        if (typeof setTimeout === "function") {
+            setTimeout(() => resolve(), 0);
             return;
         }
         resolve();

@@ -87,7 +87,7 @@ export class FileManager extends UIElement {
         }
 
         //
-        queueMicrotask(() => {
+        scheduler?.yield?.()?.then?.(() => {
             this.#pathWatcherDisposer?.();
             this.#pathWatcherDisposer = null;
             if (!this.pathRef) return;

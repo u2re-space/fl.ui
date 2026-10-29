@@ -184,7 +184,7 @@ export function subscribeNativeWindowChrome(options: NativeChromeSubscribeOption
         /* ignore */
     }
 
-    queueMicrotask(emit);
+    scheduler?.yield?.()?.then?.(emit);
 
     return () => {
         for (const mq of mqs) {

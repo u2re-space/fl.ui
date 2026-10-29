@@ -385,7 +385,7 @@ const wireQuickSettingsPanel = (host: HTMLElement): void => {
         };
         /* WHY: close the flyout first so the new env window is not covered / dismissed. */
         if (typeof requestAnimationFrame === "function") requestAnimationFrame(run);
-        else queueMicrotask(run);
+        else scheduler?.yield?.()?.then?.(run);
     };
     root.querySelectorAll<HTMLElement>("[data-qs-open]").forEach((btn) => {
         btn.addEventListener("click", () => {

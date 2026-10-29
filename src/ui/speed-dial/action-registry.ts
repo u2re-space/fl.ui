@@ -288,7 +288,7 @@ const enqueueLauncherIcon = (spec: IconBatchSpec): Promise<string> => {
         iconBatchQueue.set(spec.resultKey, { spec, resolve });
         if (iconBatchScheduled) return;
         iconBatchScheduled = true;
-        queueMicrotask(() => {
+        scheduler?.yield?.()?.then?.(() => {
             iconBatchScheduled = false;
             void flushIconBatch();
         });

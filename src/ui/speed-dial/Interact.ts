@@ -72,7 +72,7 @@ export const reflectCell = async (newItem: HTMLElement, pArgs: GridArgsType, _wi
         (pArgs?.layout as any)?.rows || pArgs?.layout?.[1] || 8
     ];
     const { item, list, items } = pArgs;
-    await new Promise(r => queueMicrotask(() => r(true)));
+    await new Promise(r => scheduler?.yield?.()?.then?.(() => r(true)));
     return affected?.(item, (_state, property) => {
         const gridSystem = newItem?.parentElement;
         layout[0] = parseInt(gridSystem?.getAttribute?.("data-grid-columns") || "4") || layout[0];
