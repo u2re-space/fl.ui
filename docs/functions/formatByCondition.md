@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -14,7 +14,7 @@ function formatByCondition(
 ): any;
 ```
 
-Defined in: modules/projects/fl.ui/src/misc/Format.ts:147
+Defined in: fl.ui/src/misc/Format.ts:147
 
 ## Parameters
 

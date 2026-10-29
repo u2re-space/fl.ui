@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function isLauncherSku(): boolean;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/AppMenu.ts:161
+Defined in: fl.ui/src/ui/navigation/app-menu/AppMenu.ts:161
 
 Matches BootLoader + launcher design spec.
 

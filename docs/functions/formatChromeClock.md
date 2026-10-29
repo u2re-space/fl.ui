@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function formatChromeClock(now?): object;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/statusbar/statusbar.ts:103
+Defined in: fl.ui/src/ui/navigation/statusbar/statusbar.ts:103
 
 European 24h clock + DD.MM.YYYY for taskbar / status overlay.
 

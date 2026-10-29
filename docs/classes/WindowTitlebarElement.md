@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -6,11 +6,17 @@
 
 # Class: WindowTitlebarElement
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:40
+Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:42
 
 ## Extends
 
-- `HTMLElement`
+- `any`
+
+## Indexable
+
+```ts
+[key: string]: any
+```
 
 ## Constructors
 
@@ -20,8 +26,6 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:40
 new WindowTitlebarElement(): WindowTitlebarElement;
 ```
 
-Defined in: node\_modules/typescript/lib/lib.dom.d.ts:17894
-
 #### Returns
 
 `WindowTitlebarElement`
@@ -29,7 +33,7 @@ Defined in: node\_modules/typescript/lib/lib.dom.d.ts:17894
 #### Inherited from
 
 ```ts
-HTMLElement.constructor
+(typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)).constructor
 ```
 
 ## Accessors
@@ -42,7 +46,7 @@ HTMLElement.constructor
 get static observedAttributes(): string[];
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:41
+Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:43
 
 ##### Returns
 
@@ -60,7 +64,7 @@ attributeChangedCallback(
 ): void;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:54
+Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:56
 
 #### Parameters
 
@@ -88,7 +92,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:54
 connectedCallback(): void;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:45
+Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:47
 
 #### Returns
 

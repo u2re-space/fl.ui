@@ -85,7 +85,7 @@ export function mount(el: HTMLElement): void {
     remount.addEventListener("click", () => {
         form.remove();
         queueMicrotask(() => {
-            el.insertBefore(form, status);
+            el.moveBefore(form, status);
             renderStatus();
         });
     });

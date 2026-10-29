@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type BookmarksMenuApi = object;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:49
+Defined in: fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:49
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:
 optional create?: (parentId, spec) => Promise<BookmarkMenuEntry | null>;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:61
+Defined in: fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:61
 
 Create a URL bookmark or folder under `parentId` (`"0"` = Chrome root).
 Omit `url` to create a folder.
@@ -53,7 +53,7 @@ Omit `url` to create a folder.
 listChildren: (folderId?) => Promise<BookmarkMenuEntry[]>;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:50
+Defined in: fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:50
 
 #### Parameters
 
@@ -73,7 +73,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:
 open: (entry) => Promise<void>;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:52
+Defined in: fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:52
 
 #### Parameters
 
@@ -93,7 +93,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:
 optional remove?: (entry) => Promise<boolean>;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:55
+Defined in: fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:55
 
 #### Parameters
 
@@ -113,7 +113,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:
 optional resolveIconUrl?: (href, size?) => string;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:54
+Defined in: fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:54
 
 Prefer Google S2; extension `_favicon` is a fallback.
 
@@ -139,7 +139,7 @@ Prefer Google S2; extension `_favicon` is a fallback.
 search: (query) => Promise<BookmarkMenuEntry[]>;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:51
+Defined in: fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:51
 
 #### Parameters
 
@@ -159,7 +159,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:
 optional update?: (id, patch) => Promise<BookmarkMenuEntry | null>;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:56
+Defined in: fl.ui/src/ui/navigation/app-menu/bookmarks-menu.ts:56
 
 #### Parameters
 

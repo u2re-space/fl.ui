@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -14,7 +14,7 @@ function positionFlyout(
 ): void;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/flyout/ChromeFlyout.ts:102
+Defined in: fl.ui/src/ui/navigation/flyout/ChromeFlyout.ts:102
 
 Place flyout for desktop (bottom-right) or mobile (calendar center / QS top-center).
 INVARIANT: panel itself must set `pointer-events: auto`.

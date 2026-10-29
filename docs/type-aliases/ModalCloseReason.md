@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,4 +10,4 @@
 type ModalCloseReason = "backdrop" | "escape" | "native" | "programmatic" | "back" | "dispose";
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/modal/Modal.ts:36
+Defined in: fl.ui/src/ui/containers/modal/Modal.ts:36

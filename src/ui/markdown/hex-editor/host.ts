@@ -29,7 +29,7 @@ import { hexEditorShadowCss } from "./styles";
 
 export const HEX_EDITOR_TAG = "cw-hex-editor";
 
-export class CwHexEditorElement extends HTMLElement {
+export class CwHexEditorElement extends (typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)) {
     #scroll: HTMLDivElement | null = null;
     #chunks: HTMLTextAreaElement[] = [];
     #latin1: HTMLPreElement | null = null;

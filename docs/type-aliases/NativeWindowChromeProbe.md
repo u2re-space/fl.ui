@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type NativeWindowChromeProbe = object;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:26
+Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:26
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome
 displayMode: NativeDisplayMode;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:31
+Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:31
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome
 isStandaloneLike: boolean;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:35
+Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:35
 
 Installed-like display (standalone / fullscreen / WCO).
 
@@ -42,7 +42,7 @@ Installed-like display (standalone / fullscreen / WCO).
 requested: boolean;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:28
+Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:28
 
 Attribute `native-mode` is requested by host.
 
@@ -54,7 +54,7 @@ Attribute `native-mode` is requested by host.
 surface: "off" | "wco" | "standalone" | "fallback";
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:43
+Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:43
 
 Effective native surface:
 - `wco` → hide custom min/max/close; use window-drag
@@ -77,7 +77,7 @@ titlebarRect:
   | null;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:33
+Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:33
 
 Geometry of the titlebar area when WCO is visible.
 
@@ -89,6 +89,6 @@ Geometry of the titlebar area when WCO is visible.
 wcoVisible: boolean;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:30
+Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:30
 
 `navigator.windowControlsOverlay.visible` (installed desktop PWA).

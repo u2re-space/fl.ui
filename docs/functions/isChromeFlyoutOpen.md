@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function isChromeFlyoutOpen(kind): boolean;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/flyout/ChromeFlyout.ts:214
+Defined in: fl.ui/src/ui/navigation/flyout/ChromeFlyout.ts:214
 
 ## Parameters
 

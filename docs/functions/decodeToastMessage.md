@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function decodeToastMessage(raw): string;
 ```
 
-Defined in: modules/projects/lur.e/src/utils/text/decodeToastMessage.ts:40
+Defined in: lur.e/src/utils/text/decodeToastMessage.ts:40
 
 Expand percent-encoded UTF-8 in toast / status text. Idempotent when already decoded.
 

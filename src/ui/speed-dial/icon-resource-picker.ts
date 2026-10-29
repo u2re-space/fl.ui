@@ -947,12 +947,12 @@ export function attachIconResourcePickButton(
     }
 
     if (input.parentElement !== row) {
-        row.insertBefore(input, btn);
+        row.moveBefore(input, btn);
     }
     /* Keep order: input → pick-icon → pick-photo */
     if (btn.parentElement === row && photoBtn.parentElement === row) {
         row.append(btn, photoBtn);
-        row.insertBefore(input, btn);
+        row.moveBefore(input, btn);
     }
 
     const stylePickBtn = (el: HTMLButtonElement) => {

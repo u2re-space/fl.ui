@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type EnvWindowTaskDescriptor = object;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:61
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:61
 
 Open floating window entry for the desktop taskbar.
 
@@ -22,7 +22,7 @@ Open floating window entry for the desktop taskbar.
 optional focused?: boolean;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:65
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:65
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:
 optional icon?: string;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:64
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:64
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:
 id: string;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:62
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:62
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:
 optional minimized?: boolean;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:66
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:66
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:
 title: string;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:63
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:63
 
 ***
 
@@ -72,4 +72,4 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:
 optional visible?: boolean;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:67
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:67

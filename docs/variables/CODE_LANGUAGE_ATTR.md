@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,4 +10,4 @@
 const CODE_LANGUAGE_ATTR: "data-language" = "data-language";
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/markdown/render.ts:15
+Defined in: fl.ui/src/ui/markdown/render.ts:15

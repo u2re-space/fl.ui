@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Class: UITaskBar
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:54
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:54
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:
 new UITaskBar(): UITaskBar;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:55
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:55
 
 #### Returns
 
@@ -38,7 +38,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:
 adoptedStyleSheets: CSSStyleSheet[];
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:149
+Defined in: lur.e/src/lure/misc/Glit.ts:149
 
 #### Inherited from
 
@@ -52,7 +52,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:149
 optional initialAttributes?: Record<string, any> | (() => Record<string, any>);
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:147
+Defined in: lur.e/src/lure/misc/Glit.ts:147
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:147
 styleLibs: HTMLStyleElement[];
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:148
+Defined in: lur.e/src/lure/misc/Glit.ts:148
 
 #### Inherited from
 
@@ -80,7 +80,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:148
 theme: string = "default";
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:15
+Defined in: fl.ui/src/ui/base/UIElement.ts:15
 
 #### Inherited from
 
@@ -94,7 +94,7 @@ Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:15
 static optional formAssociated?: boolean;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:134
+Defined in: lur.e/src/lure/misc/Glit.ts:134
 
 #### Inherited from
 
@@ -108,7 +108,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:134
 static optional observedAttributes?: string[];
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:133
+Defined in: lur.e/src/lure/misc/Glit.ts:133
 
 #### Inherited from
 
@@ -122,7 +122,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:133
 optional $init(): void;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:156
+Defined in: lur.e/src/lure/misc/Glit.ts:156
 
 #### Returns
 
@@ -140,7 +140,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:156
 optional adoptedCallback(): void | UITaskBar | undefined;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:125
+Defined in: lur.e/src/lure/misc/Glit.ts:125
 
 #### Returns
 
@@ -162,7 +162,7 @@ optional attributeChangedCallback(
 ): void | UITaskBar | undefined;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:126
+Defined in: lur.e/src/lure/misc/Glit.ts:126
 
 #### Parameters
 
@@ -194,7 +194,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:126
 connectedCallback(): this;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:28
+Defined in: fl.ui/src/ui/base/UIElement.ts:28
 
 #### Returns
 
@@ -212,7 +212,7 @@ Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:28
 createShadowRoot(): ShadowRoot;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:155
+Defined in: lur.e/src/lure/misc/Glit.ts:155
 
 #### Returns
 
@@ -230,7 +230,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:155
 optional disconnectedCallback(): void | UITaskBar | undefined;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:124
+Defined in: lur.e/src/lure/misc/Glit.ts:124
 
 #### Returns
 
@@ -248,7 +248,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:124
 loadStyleLibrary(module): void | UITaskBar | undefined;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:154
+Defined in: lur.e/src/lure/misc/Glit.ts:154
 
 #### Parameters
 
@@ -272,7 +272,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:154
 onInitialize(): this;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:37
+Defined in: fl.ui/src/ui/base/UIElement.ts:37
 
 #### Returns
 
@@ -290,7 +290,7 @@ Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:37
 onRender(): void | UITaskBar | undefined;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:24
+Defined in: fl.ui/src/ui/base/UIElement.ts:24
 
 #### Returns
 
@@ -308,7 +308,7 @@ Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:24
 render(): any;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:57
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:57
 
 #### Returns
 
@@ -326,7 +326,7 @@ Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:
 styleLayers(): string[];
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:150
+Defined in: lur.e/src/lure/misc/Glit.ts:150
 
 #### Returns
 
@@ -344,7 +344,7 @@ Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:150
 styles(): CSSStyleSheet | null;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:56
+Defined in: fl.ui/src/ui/navigation/taskbar/element/TaskBar.ts:56
 
 #### Returns
 

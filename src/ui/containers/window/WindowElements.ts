@@ -28,7 +28,9 @@ export function ensureWindowElementsDefined(): void {
     }
 }
 
-export class AppBoxElement extends HTMLElement {
+
+
+export class AppBoxElement extends (typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)) {
     connectedCallback(): void {
         if (this.dataset.flReady === "1") return;
         this.dataset.flReady = "1";
@@ -37,7 +39,7 @@ export class AppBoxElement extends HTMLElement {
     }
 }
 
-export class WindowTitlebarElement extends HTMLElement {
+export class WindowTitlebarElement extends (typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)) {
     static get observedAttributes(): string[] {
         return ["heading"];
     }

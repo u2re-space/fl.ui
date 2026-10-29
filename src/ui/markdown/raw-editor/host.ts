@@ -35,7 +35,7 @@ const isNativeCapacitorHost = (): boolean => {
 
 export const RAW_EDITOR_TAG = "cw-raw-editor";
 
-export class CwRawEditorElement extends HTMLElement {
+export class CwRawEditorElement extends (typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)) {
     #pre: HTMLPreElement | null = null;
     #code: HTMLElement | null = null;
     #scroll: HTMLDivElement | null = null;

@@ -192,7 +192,7 @@ function normalizeSchedule(input: ScheduleInput): Schedule {
     };
 }
 
-export class CalendarScheduler extends HTMLElement {
+export class CalendarScheduler extends (typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)) {
     static observedAttributes = ["view", "date", "locale", "slot-minutes"];
 
     private readonly root: ShadowRoot;

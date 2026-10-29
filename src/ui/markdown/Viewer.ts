@@ -24,9 +24,9 @@ export function createMarkdownViewFrame(): HTMLElement {
 }
 
 /** Lightweight host element for viewer content that can switch between raw and prose modes. */
-export class MarkdownViewFrameElement extends HTMLElement {
+export class MarkdownViewFrameElement extends (typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)) {
     ensureReady(): this {
-        const self = this as HTMLElement & { dataset: DOMStringMap };
+        const self = this as any as HTMLElement & { dataset: DOMStringMap };
         if (self.dataset.ready === "1") return this;
         self.dataset.ready = "1";
         self.classList.add("cw-markdown-view-frame");

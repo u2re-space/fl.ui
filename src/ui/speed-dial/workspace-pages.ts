@@ -279,7 +279,7 @@ const beginWorkspacePageTurn = (direction: number): (() => void) => {
         ghost.classList.add("speed-dial-grid--turn-ghost");
         ghost.dataset.wsGhost = "1";
         ghost.setAttribute("aria-hidden", "true");
-        el.parentElement?.insertBefore(ghost, el.nextSibling);
+        el.parentElement?.moveBefore(ghost, el.nextSibling);
         el.style.opacity = "0";
         ghosts.push(ghost);
         ghost.animate(

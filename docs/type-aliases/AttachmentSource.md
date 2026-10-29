@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type AttachmentSource = "picker" | "drop" | "paste" | "share";
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/inputs/attachments/AttachmentSources.ts:9
+Defined in: fl.ui/src/ui/inputs/attachments/AttachmentSources.ts:9
 
 Normalizes browser picker, drop, paste, and share payloads into attachment
 candidates without deciding how a consuming view persists or displays them.

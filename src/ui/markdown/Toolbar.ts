@@ -66,9 +66,9 @@ export function createViewerToolbar(): HTMLElement {
 const TOOLBAR_TAG = "cw-markdown-toolbar-frame";
 const TOOLBAR_SLOT = "toolbar";
 
-export class MarkdownToolbarFrameElement extends HTMLElement {
+export class MarkdownToolbarFrameElement extends (typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)) {
     ensureReady(): this {
-        const self = this as HTMLElement & { dataset: DOMStringMap };
+        const self = this as any as HTMLElement & { dataset: DOMStringMap };
         if (self.dataset.ready === "1") return this;
         self.dataset.ready = "1";
         self.classList?.add?.("cw-markdown-toolbar-frame");

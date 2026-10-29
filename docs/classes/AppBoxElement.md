@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -6,11 +6,17 @@
 
 # Class: AppBoxElement
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:31
+Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:33
 
 ## Extends
 
-- `HTMLElement`
+- `any`
+
+## Indexable
+
+```ts
+[key: string]: any
+```
 
 ## Constructors
 
@@ -20,8 +26,6 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:31
 new AppBoxElement(): AppBoxElement;
 ```
 
-Defined in: node\_modules/typescript/lib/lib.dom.d.ts:17894
-
 #### Returns
 
 `AppBoxElement`
@@ -29,7 +33,7 @@ Defined in: node\_modules/typescript/lib/lib.dom.d.ts:17894
 #### Inherited from
 
 ```ts
-HTMLElement.constructor
+(typeof HTMLElement != "undefined" ? HTMLElement : (Object as any)).constructor
 ```
 
 ## Methods
@@ -40,7 +44,7 @@ HTMLElement.constructor
 connectedCallback(): void;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/WindowElements.ts:32
+Defined in: fl.ui/src/ui/containers/window/WindowElements.ts:34
 
 #### Returns
 

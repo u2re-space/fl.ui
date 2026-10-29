@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Class: UIElement
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:14
+Defined in: fl.ui/src/ui/base/UIElement.ts:14
 
 ## Extends
 
@@ -29,7 +29,7 @@ Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:14
 new UIElement(): UIElement;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:22
+Defined in: fl.ui/src/ui/base/UIElement.ts:22
 
 #### Returns
 
@@ -49,7 +49,7 @@ GLitElement().constructor
 adoptedStyleSheets: CSSStyleSheet[];
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:149
+Defined in: lur.e/src/lure/misc/Glit.ts:149
 
 #### Inherited from
 
@@ -65,7 +65,7 @@ GLitElement().adoptedStyleSheets
 optional initialAttributes?: Record<string, any> | (() => Record<string, any>);
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:147
+Defined in: lur.e/src/lure/misc/Glit.ts:147
 
 #### Inherited from
 
@@ -81,7 +81,7 @@ GLitElement().initialAttributes
 styleLibs: HTMLStyleElement[];
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:148
+Defined in: lur.e/src/lure/misc/Glit.ts:148
 
 #### Inherited from
 
@@ -97,7 +97,7 @@ GLitElement().styleLibs
 optional styles?: any;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:146
+Defined in: lur.e/src/lure/misc/Glit.ts:146
 
 #### Inherited from
 
@@ -113,7 +113,7 @@ GLitElement().styles
 theme: string = "default";
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:15
+Defined in: fl.ui/src/ui/base/UIElement.ts:15
 
 ***
 
@@ -123,7 +123,7 @@ Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:15
 static optional formAssociated?: boolean;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:134
+Defined in: lur.e/src/lure/misc/Glit.ts:134
 
 #### Inherited from
 
@@ -139,7 +139,7 @@ GLitElement().formAssociated
 static optional observedAttributes?: string[];
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:133
+Defined in: lur.e/src/lure/misc/Glit.ts:133
 
 #### Inherited from
 
@@ -155,7 +155,7 @@ GLitElement().observedAttributes
 optional $init(): void;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:156
+Defined in: lur.e/src/lure/misc/Glit.ts:156
 
 #### Returns
 
@@ -175,7 +175,7 @@ GLitElement().$init
 optional adoptedCallback(): void | UIElement | undefined;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:125
+Defined in: lur.e/src/lure/misc/Glit.ts:125
 
 #### Returns
 
@@ -199,7 +199,7 @@ optional attributeChangedCallback(
 ): void | UIElement | undefined;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:126
+Defined in: lur.e/src/lure/misc/Glit.ts:126
 
 #### Parameters
 
@@ -233,7 +233,7 @@ GLitElement().attributeChangedCallback
 connectedCallback(): this;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:28
+Defined in: fl.ui/src/ui/base/UIElement.ts:28
 
 #### Returns
 
@@ -253,7 +253,7 @@ GLitElement().connectedCallback
 createShadowRoot(): ShadowRoot;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:155
+Defined in: lur.e/src/lure/misc/Glit.ts:155
 
 #### Returns
 
@@ -273,7 +273,7 @@ GLitElement().createShadowRoot
 optional disconnectedCallback(): void | UIElement | undefined;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:124
+Defined in: lur.e/src/lure/misc/Glit.ts:124
 
 #### Returns
 
@@ -293,7 +293,7 @@ GLitElement().disconnectedCallback
 loadStyleLibrary(module): void | UIElement | undefined;
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:154
+Defined in: lur.e/src/lure/misc/Glit.ts:154
 
 #### Parameters
 
@@ -319,7 +319,7 @@ GLitElement().loadStyleLibrary
 onInitialize(): this;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:37
+Defined in: fl.ui/src/ui/base/UIElement.ts:37
 
 #### Returns
 
@@ -339,7 +339,7 @@ GLitElement().onInitialize
 onRender(): void | UIElement | undefined;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:24
+Defined in: fl.ui/src/ui/base/UIElement.ts:24
 
 #### Returns
 
@@ -359,7 +359,7 @@ GLitElement().onRender
 render(_weak?): any;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/base/UIElement.ts:18
+Defined in: fl.ui/src/ui/base/UIElement.ts:18
 
 #### Parameters
 
@@ -385,7 +385,7 @@ GLitElement().render
 styleLayers(): string[];
 ```
 
-Defined in: modules/projects/lur.e/src/lure/misc/Glit.ts:150
+Defined in: lur.e/src/lure/misc/Glit.ts:150
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function closeQuickSettingsFlyout(): void;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:564
+Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:564
 
 Close the Quick Settings flyout if open (no-op otherwise).
 

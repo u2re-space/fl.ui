@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 function getCurrentQuickTheme(): QuickThemeMode;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/navigation/settings/QuickSettings.ts:76
+Defined in: fl.ui/src/ui/navigation/settings/QuickSettings.ts:76
 
 Current theme: `data-theme` attr > stored pref > OS `prefers-color-scheme`.
 

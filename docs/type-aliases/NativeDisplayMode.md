@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -16,7 +16,7 @@ type NativeDisplayMode =
   | "unknown";
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/native-window-chrome.ts:18
+Defined in: fl.ui/src/ui/containers/window/native-window-chrome.ts:18
 
 WHY: `native-mode` on `<ui-window>` must know whether OS Window Controls Overlay /
 standalone display-mode can own min/max/close + window drag, or whether to fall back

@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.39**](../README.md)
+[**@fest-lib/fl-ui v1.0.40**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 type AnchoredWindowParts = object;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:32
+Defined in: fl.ui/src/ui/containers/window/Windows.ts:32
 
 ## Properties
 
@@ -20,7 +20,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:32
 frame: AppBoxElement;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:33
+Defined in: fl.ui/src/ui/containers/window/Windows.ts:33
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:33
 panePrimary: HTMLElement;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:36
+Defined in: fl.ui/src/ui/containers/window/Windows.ts:36
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:36
 paneSecondary: HTMLElement;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:37
+Defined in: fl.ui/src/ui/containers/window/Windows.ts:37
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:37
 resizer: HTMLElement;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:38
+Defined in: fl.ui/src/ui/containers/window/Windows.ts:38
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:38
 split: HTMLElement;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:35
+Defined in: fl.ui/src/ui/containers/window/Windows.ts:35
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:35
 titlebar: WindowTitlebarElement;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:34
+Defined in: fl.ui/src/ui/containers/window/Windows.ts:34
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:34
 unbind: () => void;
 ```
 
-Defined in: modules/projects/fl.ui/src/ui/containers/window/Windows.ts:39
+Defined in: fl.ui/src/ui/containers/window/Windows.ts:39
 
 #### Returns
 
