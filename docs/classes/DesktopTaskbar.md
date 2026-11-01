@@ -1,4 +1,4 @@
-[**@fest-lib/fl-ui v1.0.46**](../README.md)
+[**@fest-lib/fl-ui v1.0.47**](../README.md)
 
 ***
 
@@ -49,14 +49,14 @@ Defined in: fl.ui/src/ui/navigation/appearance/Desktop.ts:12
 #### Get Signature
 
 ```ts
-get elements(): any;
+get elements(): WeakSet<Element> | undefined;
 ```
 
-Defined in: dom.ts/src/mixin/Mixins.ts:146
+Defined in: dom.ts/src/mixin/Mixins.ts:513
 
 ##### Returns
 
-`any`
+`WeakSet`\<`Element`\> \| `undefined`
 
 #### Inherited from
 
@@ -71,18 +71,20 @@ DOMMixin.elements
 #### Get Signature
 
 ```ts
-get name(): any;
+get name(): string | undefined;
 ```
 
-Defined in: dom.ts/src/mixin/Mixins.ts:148
+Defined in: dom.ts/src/mixin/Mixins.ts:515
 
 ##### Returns
 
-`any`
+`string` \| `undefined`
 
 #### Inherited from
 
-[`MobileTaskbar`](MobileTaskbar.md).[`name`](MobileTaskbar.md#name)
+```ts
+DOMMixin.name
+```
 
 ***
 
@@ -91,14 +93,14 @@ Defined in: dom.ts/src/mixin/Mixins.ts:148
 #### Get Signature
 
 ```ts
-get storage(): any;
+get storage(): unknown;
 ```
 
-Defined in: dom.ts/src/mixin/Mixins.ts:147
+Defined in: dom.ts/src/mixin/Mixins.ts:514
 
 ##### Returns
 
-`any`
+`unknown`
 
 #### Inherited from
 
@@ -163,38 +165,20 @@ DOMMixin.disconnect
 ### relatedForElement()
 
 ```ts
-relatedForElement(element): object;
+relatedForElement(element): Related;
 ```
 
-Defined in: dom.ts/src/mixin/Mixins.ts:143
+Defined in: dom.ts/src/mixin/Mixins.ts:512
 
 #### Parameters
 
 ##### element
 
-`any`
+`Element`
 
 #### Returns
 
-`object`
-
-##### behaviorSet
-
-```ts
-behaviorSet: any;
-```
-
-##### mixinSet
-
-```ts
-mixinSet: any;
-```
-
-##### storeSet
-
-```ts
-storeSet: Map<any, any>;
-```
+`Related`
 
 #### Inherited from
 
@@ -207,20 +191,20 @@ DOMMixin.relatedForElement
 ### storeForElement()
 
 ```ts
-storeForElement(element): any;
+storeForElement(element): unknown;
 ```
 
-Defined in: dom.ts/src/mixin/Mixins.ts:142
+Defined in: dom.ts/src/mixin/Mixins.ts:511
 
 #### Parameters
 
 ##### element
 
-`any`
+`Element`
 
 #### Returns
 
-`any`
+`unknown`
 
 #### Inherited from
 
