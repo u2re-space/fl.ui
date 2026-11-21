@@ -82,7 +82,7 @@
         "dev:http": "VIEW_DEV_HTTP=1 vite --host 0.0.0.0",
         "dev:8434": "VIEW_DEV_PORT=8434 vite --host 0.0.0.0",
         "watch": "vite build --watch",
-        "build": "vite build --config vite.config.js && npm run docs && npm run docs:md",
+        "build": "vite build --config vite.config.js",
         "build:publish": "FEST_NPM_IMPORTS=1 vite build --config vite.config.js",
         "prepack": "npm run build:publish",
         "docs": "typedoc ./src/index.ts --options ./typedoc.json --out ./docs --tsconfig ./tsconfig.json --excludeExternals --excludePrivate --excludeProtected --skipErrorChecking",
