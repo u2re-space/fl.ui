@@ -2077,7 +2077,7 @@ export interface GridLayoutSettings {
     iconScale?: IconBitmapScale;
 }
 
-export type IconBitmapScale = "compact" | "fit" | "fill" | "zoom" | "max";
+export type IconBitmapScale = "compact" | "fit" | "fill" | "zoom" | "max" | "ultra";
 
 /** Per-tile: `auto` inherits Workspace default. */
 export type ItemIconBitmapScale = IconBitmapScale | "auto";
@@ -2087,7 +2087,8 @@ const ICON_SCALE_VALUES: Record<IconBitmapScale, string> = {
     fit: "1",
     fill: "1.28",
     zoom: "1.5",
-    max: "1.75"
+    max: "1.75",
+    ultra: "2"
 };
 
 export const ICON_BITMAP_SCALE_OPTIONS: Array<{ value: ItemIconBitmapScale; label: string }> = [
@@ -2096,7 +2097,8 @@ export const ICON_BITMAP_SCALE_OPTIONS: Array<{ value: ItemIconBitmapScale; labe
     { value: "fit", label: "Fit (1.0 — no zoom)" },
     { value: "fill", label: "Fill (1.28 — adaptive)" },
     { value: "zoom", label: "Zoom (1.5)" },
-    { value: "max", label: "Max (1.75)" }
+    { value: "max", label: "Max (1.75)" },
+    { value: "ultra", label: "Ultra (2)" }
 ];
 
 export function normalizeIconBitmapScale(raw: unknown, fallback: IconBitmapScale = "fill"): IconBitmapScale {
@@ -2106,6 +2108,7 @@ export function normalizeIconBitmapScale(raw: unknown, fallback: IconBitmapScale
     if (v === "fill" || v === "adaptive" || v === "1.28") return "fill";
     if (v === "zoom" || v === "1.5") return "zoom";
     if (v === "max" || v === "large" || v === "1.75") return "max";
+    if (v === "ultra" || v === "x-large" || v === "2") return "ultra";
     return fallback;
 }
 
