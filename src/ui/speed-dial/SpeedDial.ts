@@ -24,6 +24,7 @@ import {
 import { showSuccess, showError } from "./toast";
 import {
     setAppWallpaperFromBlob,
+    setAppWallpaperLayout,
     resolveAppWallpaperUrl,
     getWallpaperStoragePointer,
     WALLPAPER_IDB_MARKER
@@ -79,6 +80,7 @@ import {
 } from "./launcher-state";
 import { isInFocus, MOCElement, updateVP, ensureVirtualKeyboardOverlay } from "@fest-lib/dom";
 import { openShortcutEditor } from "./ShortcutEditor";
+import { openWallpaperComposer } from "./WallpaperComposer";
 import { mountCoreRail } from "./core-rail";
 import { mountChromeRail } from "./chrome-rail";
 import { applyTilesLockedAttr, isTilesLocked, TILES_LOCKED_EVENT } from "./tiles-lock";
@@ -1300,6 +1302,8 @@ const extractImageFileFromTransfer = (dt: DataTransfer | null | undefined): File
 };
 
 const applyWallpaperFromImageFile = (file: File): void => {
+    /* WHY: a new photo must not inherit the previous photo's framing. */
+    setAppWallpaperLayout({ scale: 1, positionX: "center", positionY: "center" });
     void setAppWallpaperFromBlob(file)
         .then(() => {
             wallpaperState.src = getWallpaperStoragePointer() || WALLPAPER_IDB_MARKER;
@@ -1632,6 +1636,16 @@ export function makeWallpaper() {
 }
 
 //
+const persistWallpaperPointer = (): void => {
+    wallpaperState.src = getWallpaperStoragePointer() || WALLPAPER_IDB_MARKER;
+    persistWallpaper();
+};
+
+/**
+ * File picker → interactive framing (scale + position) → persist to IDB.
+ * WHY: framing before set — the composer's `ui-canvas` preview is the same engine,
+ * so what the user frames is exactly what the shell paints afterwards.
+ */
 const pickWallpaper = () => {
     const input = document.createElement("input");
     input.type = "file";
@@ -1639,18 +1653,44 @@ const pickWallpaper = () => {
     input.onchange = async () => {
         const file = input.files?.[0];
         if (!file) return;
-        try {
-            /* WHY: persist bytes to IDB; localStorage only holds the marker pointer. */
-            await setAppWallpaperFromBlob(file);
-            wallpaperState.src = getWallpaperStoragePointer() || WALLPAPER_IDB_MARKER;
-            persistWallpaper();
-            showSuccess("Wallpaper updated");
-        } catch (e) {
-            console.warn(e);
-            showError("Failed to set wallpaper");
-        }
+        await openWallpaperComposer({
+            blob: file,
+            title: "Wallpaper",
+            confirmLabel: "Set wallpaper",
+            onConfirm: async ({ blob, layout }) => {
+                if (!blob) return;
+                try {
+                    await setAppWallpaperFromBlob(blob);
+                    setAppWallpaperLayout(layout);
+                    persistWallpaperPointer();
+                    showSuccess("Wallpaper updated");
+                } catch (e) {
+                    console.warn(e);
+                    showError("Failed to set wallpaper");
+                }
+            },
+            onCancel: () => {/* user dismissed the composer */}
+        });
     };
     input.click();
+};
+
+/** Reframe the currently painted wallpaper (no re-pick): composer on stored layout. */
+const adjustWallpaperLayout = async (): Promise<void> => {
+    await openWallpaperComposer({
+        title: "Wallpaper framing",
+        confirmLabel: "Apply",
+        allowPickOther: false,
+        onConfirm: ({ layout }) => {
+            try {
+                setAppWallpaperLayout(layout);
+                showSuccess("Wallpaper framing updated");
+            } catch (e) {
+                console.warn(e);
+                showError("Failed to update wallpaper framing");
+            }
+        }
+    });
 };
 
 //
@@ -2583,7 +2623,8 @@ export function createCtxMenu(makeView?: any) {
                         icon: "image",
                         action: () => {},
                         children: [
-                            { id: "change-wallpaper", label: "Change wallpaper", icon: "image", action: pickWallpaper }
+                            { id: "change-wallpaper", label: "Change wallpaper", icon: "image", action: pickWallpaper },
+                            { id: "wallpaper-framing", label: "Position & scale", icon: "frame-corners", action: () => { void adjustWallpaperLayout(); } }
                         ]
                     },
                     {

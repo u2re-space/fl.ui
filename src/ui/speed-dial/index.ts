@@ -4,6 +4,7 @@ export { bindInteraction, reflectCell, resolveGridCellFromClientPoint } from "./
 export { bindPointerInteraction } from "./pointer-interaction";
 export * from "./layout";
 export { openShortcutEditor } from "./ShortcutEditor";
+export { openWallpaperComposer } from "./WallpaperComposer";
 export { setSpeedDialViewOpener, getSpeedDialViewOpener, type SpeedDialViewOpener } from "./view-opener";
 export {
     registerSpeedDialAction,
