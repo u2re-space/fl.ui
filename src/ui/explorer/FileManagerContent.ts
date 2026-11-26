@@ -40,8 +40,8 @@ export class FileManagerContent extends UIElement {
     //
     public operativeInstance: FileOperative | null = null;
     public operativeInstanceRef = ref<FileOperative | null>(null);
-    #rowsContainer: HTMLElement | null = null;
-    #dropHandlersBound = false;
+    $rowsContainer: HTMLElement | null = null;
+    $dropHandlersBound = false;
 
     //
     get entries() { return this.operativeInstance?.entries ?? []; }
@@ -110,13 +110,13 @@ export class FileManagerContent extends UIElement {
     }
 
     protected bindDropHandlers() {
-        if (this.#dropHandlersBound) return;
+        if (this.$dropHandlersBound) return;
         // WHY: Real browser DragEvents are not `composed`, so a host-only listener
         // never sees drops that land on `.fm-grid-rows` inside the shadow tree.
         // Listen on shadowRoot (and the host) so empty-space and row drops both work.
         const shadow = this.shadowRoot;
         if (!shadow) return;
-        this.#dropHandlersBound = true;
+        this.$dropHandlersBound = true;
         if (!this.hasAttribute("tabindex")) this.tabIndex = 0;
 
         addEvent(this, "pointerdown", (ev: PointerEvent) => {
@@ -226,10 +226,10 @@ export class FileManagerContent extends UIElement {
     }
 
     private findRowsContainer(): HTMLElement | null {
-        if (this.#rowsContainer?.isConnected) return this.#rowsContainer;
+        if (this.$rowsContainer?.isConnected) return this.$rowsContainer;
         const grids = Array.from(this.shadowRoot?.querySelectorAll?.(".fm-grid") || []) as HTMLElement[];
         const latest = grids.at(-1)?.querySelector<HTMLElement>(".fm-grid-rows") ?? null;
-        this.#rowsContainer = latest;
+        this.$rowsContainer = latest;
         return latest;
     }
 
@@ -349,7 +349,7 @@ export class FileManagerContent extends UIElement {
         /* WHY: `will-change: contents` made Android WebView skip painting
          * row text until a later style recalc (icons still drew). */
         const fileRows = H`<div class="fm-grid-rows"></div>`;
-        this.#rowsContainer = fileRows as HTMLElement;
+        this.$rowsContainer = fileRows as HTMLElement;
         createItemCtxMenu?.(fileRows, operative.onMenuAction.bind(operative), self.entries);
         scheduler?.yield?.()?.then?.(() => {
             self.bindDropHandlers();
@@ -362,7 +362,7 @@ export class FileManagerContent extends UIElement {
                         extra.remove();
                     }
                 }
-                self.#rowsContainer = latest.querySelector(".fm-grid-rows") as HTMLElement | null;
+                self.$rowsContainer = latest.querySelector(".fm-grid-rows") as HTMLElement | null;
             }
             self.syncRows();
         });
